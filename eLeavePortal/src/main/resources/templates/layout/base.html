@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+    th:fragment="layout(content, pageStyle)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle} ?: 'eLeave Portal'">eLeave Portal</title>
+
+    <link rel="stylesheet" th:href="@{/css/base/variables.css}">
+    <link rel="stylesheet" th:href="@{/css/base/layout.css}">
+    
+    <link rel="stylesheet" th:href="@{/css/components/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/components/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/components/buttons.css}">
+
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <th:block th:replace="${pageStyle} ?: ~{}"></th:block>
+</head>
+<body>
+
+<header th:replace="~{/fragments/navbar :: navbar}"></header>
+
+<main th:replace="${content}"></main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+
+</body>
+</html>

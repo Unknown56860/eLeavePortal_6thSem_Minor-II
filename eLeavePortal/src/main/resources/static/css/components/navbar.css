@@ -1,0 +1,32 @@
+/* =====================
+   HEADER (THIN + STICKY)
+===================== */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 56px;
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
+    z-index: 1000;
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.logo img {
+    height: 32px;
+    width: auto;
+    display: block;
+}
+
+.main-nav a {
+    margin-left: 1.25rem;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+}

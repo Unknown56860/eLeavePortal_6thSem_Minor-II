@@ -1,1 +1,133 @@
-This is the home page.
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layout/base :: layout(~{ :: content}, ~{::pageStyle})}">
+
+<th:block th:fragment="pageStyle">
+    <link rel="stylesheet" th:href="@{/css/pages/home.css}">
+</th:block>
+
+<main th:fragment="content">
+    <!-- HERO -->
+    <section class="hero section">
+        <div class="container grid-2">
+            <div class="hero-content">
+                <h1>Transform Your Leave Experience</h1>
+                <p>
+                    In a world where convenience and efficiency are paramount,
+                    the eLeave Portal digitizes the leave process, ensuring
+                    security, transparency, and accessibility.
+                </p>
+            </div>
+            <div class="hero-media">
+                <img th:src="@{/images/hero.jpg}" alt="hero">
+            </div>
+        </div>
+    </section>
+
+    <!-- VISION -->
+    <section class="vision section">
+        <div class="container text-center">
+            <h2>Our Vision</h2>
+            <p>
+                To empower students with a seamless, transparent, and efficient
+                leave management system that enhances their academic journey.
+            </p>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features" class="section">
+        <div class="container grid-2">
+            <div>
+                <h2>Features</h2>
+                <ul class="feature-list">
+                    <li>User-friendly interface</li>
+                    <li>Real-time application status</li>
+                    <li>Automated approval routing</li>
+                    <li>Secure platform</li>
+                    <li>Transparent process</li>
+                    <li>Inclusive environment</li>
+                </ul>
+                <a href="#" class="btn btn-secondary">Sign up</a>
+            </div>
+            <div class="feature-media">
+                <img th:src="@{/images/features.svg}" alt="features">
+            </div>
+        </div>
+    </section>
+
+    <!-- TECHNOLOGIES -->
+    <section class="section">
+        <div class="container text-center">
+            <h2>Technologies Used</h2>
+            <div class="tech-grid">
+                <div class="tech-box">
+                    <img th:src="@{/images/icons/java.svg}" alt="Java">
+                </div>
+                <div class="tech-box">
+                    <img th:src="@{/images/icons/spring.svg}" alt="Spring">
+                </div>
+                <div class="tech-box">
+                    <img th:src="@{/images/icons/springBoot.svg}" alt="Spring Boot">
+                </div>
+                <div class="tech-box">
+                    <img th:src="@{/images/icons/thymeleaf.svg}" alt="ThymeLeaf">
+                </div>
+                <div class="tech-box">
+                    <img th:src="@{/images/icons/mysql.png}" alt="MySQL">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+        <div class="container grid-2">
+            <div>
+                <h2>Contact Us</h2>
+                <form class="contact-form">
+                    <input type="text" placeholder="Name">
+                    <input type="email" placeholder="E-mail">
+                    <textarea placeholder="Message"></textarea>
+                    <button class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+
+            <div>
+                <h2>Developers</h2>
+                <ul class="developer-list">
+                    <li class="developer">
+                        <div class="avatar">
+                            <img th:src="@{/images/icons/profile-circle.svg}" alt="profile">
+                        </div>
+                        <div>
+                            <strong>Deepa Sharma</strong>
+                            <span>deepa@gmail.com</span>
+                        </div>
+                    </li>
+
+                    <li class="developer">
+                        <div class="avatar">
+                            <img th:src="@{/images/icons/profile-circle.svg}" alt="profile">
+                        </div>
+                        <div>
+                            <strong>Abhinav Kumar</strong>
+                            <span>abhinav@gmail.com</span>
+                        </div>
+                    </li>
+
+                    <li class="developer">
+                        <div class="avatar">
+                            <img th:src="@{/images/icons/profile-circle.svg}" alt="profile">
+                        </div>
+                        <div>
+                            <strong>Lipsa Samantary</strong>
+                            <span>lipsa@gmail.com</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</main>
+
+</html>

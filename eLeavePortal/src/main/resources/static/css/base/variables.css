@@ -1,0 +1,15 @@
+/* =====================
+   CSS VARIABLES
+===================== */
+:root {
+    --primary: #1f3a5f;
+    --secondary: #e0e6ed;
+    --accent: #3b82f6;
+
+    --text-dark: #1f2933;
+    --text-light: #6b7280;
+
+    --bg-light: #f5f6f8;
+    --bg-dark: #0f172a;
+    --bg-darker: #020617;
+}
