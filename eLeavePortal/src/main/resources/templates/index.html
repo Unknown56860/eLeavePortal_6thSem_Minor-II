@@ -84,11 +84,11 @@
         <div class="container grid-2">
             <div>
                 <h2>Contact Us</h2>
-                <form class="contact-form">
-                    <input type="text" placeholder="Name">
-                    <input type="email" placeholder="E-mail">
-                    <textarea placeholder="Message"></textarea>
-                    <button class="btn btn-primary">Submit</button>
+                <form method="post" action="/contact" class="contact-form">
+                    <input type="text" name="name" placeholder="Name" required>
+                    <input type="email" name="email" placeholder="E-mail" required>
+                    <textarea name="message" placeholder="Message" required></textarea>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
 

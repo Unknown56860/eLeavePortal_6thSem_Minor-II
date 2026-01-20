@@ -1,4 +1,3 @@
-
 /* =====================
    HERO
 ===================== */
@@ -29,20 +28,20 @@
     background:
         radial-gradient(
             circle at 20% 30%,
-            #1e3a8a,
-            #020617 70%
+            #8a1e71,
+            #17020f 70%
         ),
         linear-gradient(
             135deg,
-            #020617,
-            #0f172a
+            #170210,
+            #2a0f21
         );
-    color: #e5e7eb;
+    color: #ebe5ea;
 }
 
 .vision h2,
 .vision p {
-    color: #e5e7eb;
+    color: #ebe5ea;
 }
 
 /* =====================
@@ -100,7 +99,7 @@
     width: 100%;
     padding: 0.65rem;
     margin-bottom: 0.9rem;
-    border: 1px solid #d1d5db;
+    border: 1px solid #dbd1d8;
     font-size: 0.9rem;
 }
 
