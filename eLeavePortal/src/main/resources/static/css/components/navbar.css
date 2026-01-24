@@ -1,32 +1,51 @@
 /* =====================
-   HEADER (THIN + STICKY)
+   HEADER
 ===================== */
+
 .site-header {
     position: fixed;
     top: 0;
-    left: 0;
-    width: 100%;
+    inset-inline: 0;
     height: 56px;
-    background: #ffffff;
-    border-bottom: 1px solid #ebe5e9;
+    background: var(--bg-body);
+    border-bottom: 1px solid var(--border-light);
     z-index: 1000;
 }
 
 .header-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .logo img {
     height: 32px;
-    width: auto;
-    display: block;
 }
 
 .main-nav a {
     margin-left: 1.25rem;
-    font-size: 0.9rem;
+    font-size: var(--font-size-base);
     color: var(--text-dark);
+    position: relative;
+}
+
+.main-nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width var(--transition);
+}
+
+.main-nav a:hover::after {
+    width: 100%;
+}
+
+/* Prevent login button text color change on hover */
+.main-nav .btn:hover {
+    color: var(--text-inverse);
 }

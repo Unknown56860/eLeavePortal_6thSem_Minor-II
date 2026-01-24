@@ -1,9 +1,10 @@
 /* =====================
    RESET & BASE
 ===================== */
-* {
-    margin: 0;
-    padding: 0;
+
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
@@ -12,23 +13,29 @@ html {
 }
 
 body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    color: var(--text-dark);
+    margin: 0;
+    padding-top: 56px;
+    font-family: var(--font-base);
+    font-size: var(--font-size-md);
     line-height: 1.6;
-    background: #fff;
-    padding-top: 56px; /* space for sticky header */
+    color: var(--text-dark);
+    background: var(--bg-body);
 }
 
 img {
     max-width: 100%;
     height: auto;
     display: block;
-    object-fit: contain; /* scale, never crop */
 }
 
 a {
-    text-decoration: none;
     color: var(--primary);
+    text-decoration: none;
+    transition: color var(--transition);
+}
+
+a:hover {
+    color: var(--accent);
 }
 
 h1, h2, h4 {
@@ -39,19 +46,20 @@ h1, h2, h4 {
 /* =====================
    STRUCTURE
 ===================== */
+
 .section {
-    padding: 4rem 0;
+    padding: var(--space-lg) 0;
 }
 
 .container {
-    width: 90%;
-    max-width: 1200px;
-    margin: auto;
+    width: min(90%, 1200px);
+    margin-inline: auto;
 }
 
 /* =====================
    RESPONSIVE
 ===================== */
+
 @media (max-width: 768px) {
     .grid-2,
     .grid-3 {
@@ -61,9 +69,5 @@ h1, h2, h4 {
     .hero-media img,
     .feature-media img {
         max-height: 35vh;
-    }
-
-    .tech-grid {
-        justify-content: center;
     }
 }

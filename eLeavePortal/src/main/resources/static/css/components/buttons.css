@@ -3,16 +3,30 @@
 ===================== */
 .btn {
     display: inline-block;
-    padding: 0.55rem 1.2rem;
-    font-size: 0.9rem;
+    padding: 0.6rem 1.4rem;
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    border-radius: var(--radius-sm);
+    transition: transform var(--transition), background var(--transition);
+    color: var(--text-inverse);
+}
+
+.btn:hover {
+    transform: translateY(-1px);
 }
 
 .btn-primary {
     background: var(--accent);
-    color: #fff;
+}
+
+.btn-primary:hover {
+    background: var(--accent-dark);
 }
 
 .btn-secondary {
     background: var(--primary);
-    color: #fff;
+}
+
+.btn-secondary:hover {
+    background: var(--primary-dark);
 }

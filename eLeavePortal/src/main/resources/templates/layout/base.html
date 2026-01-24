@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" 
-    th:fragment="layout(content, pageStyle)">
+    th:fragment="layout(page, content, pageStyle)">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,13 +16,15 @@
     <link rel="stylesheet" th:href="@{/css/main.css}">
     <th:block th:replace="${pageStyle} ?: ~{}"></th:block>
 </head>
-<body>
+<body th:attr="data-page=${page}">
 
 <header th:replace="~{/fragments/navbar :: navbar}"></header>
 
 <main th:replace="${content}"></main>
 
 <footer th:replace="~{fragments/footer :: footer}"></footer>
+
+<script th:src="@{/js/app.js}" type="module"></script>
 
 </body>
 </html>

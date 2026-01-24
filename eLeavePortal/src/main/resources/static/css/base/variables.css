@@ -1,15 +1,90 @@
-/* =====================
-   CSS VARIABLES
-===================== */
 :root {
+    /* =====================
+       BRAND COLORS
+    ===================== */
     --primary: #5f1f4b;
-    --secondary: #ede0ea;
-    --accent: #f63ba2;
+    --primary-dark: #4b183c;
 
+    --secondary: #ede0ea;
+
+    --accent: #f63ba2;
+    --accent-dark: #e2338f;
+
+   /* =====================
+       SOME USEFUL COLORS
+    ===================== */
+    --color-success: #08ed13;
+    --color-success-light: #95fd9a;
+    --color-success-dark: #01a509;
+    --color-success-translucent: #02ff0fc7;
+
+    --color-warning: #f6f208;
+    --color-warning-light: #f9f78f;
+    --color-warning-dark: #cfcc00;
+    --color-warning-translucent: #fffb04ca;
+
+    --color-wrong: #f13207;
+    --color-wrong-light: #ff6c4b;
+    --color-wrong-dark: #b52100;
+    --color-wrong-translucent: #ff2f00d2;
+
+    /* =====================
+       TEXT COLORS
+    ===================== */
     --text-dark: #331f2d;
     --text-light: #806b7a;
+    --text-inverse: #ffffff;
+    --text-muted: #b894ae;
 
+    /* =====================
+       BACKGROUNDS
+    ===================== */
+    --bg-body: #ffffff;
     --bg-light: #f8f5f8;
-    --bg-dark: #0f172a;
+    --bg-dark: #2a0f22;
     --bg-darker: #170210;
+
+    /* =====================
+       BORDERS & DIVIDERS
+    ===================== */
+    --border-light: #ebe5f0;
+    --border-muted: #dbd1d8;
+    --border-dark: #1e293b;
+
+    /* =====================
+       FOOTER
+    ===================== */
+    --footer-text: #f5cbe8;
+    --footer-hover: #ffffff;
+
+    /* =====================
+       GRADIENTS
+    ===================== */
+    --vision-radial-start: #8a1e71;
+    --vision-radial-end: #17020f;
+    --vision-linear-start: #170210;
+    --vision-linear-end: #2a0f21;
+
+    /* =====================
+       TYPOGRAPHY
+    ===================== */
+    --font-base: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-size-sm: 0.85rem;
+    --font-size-base: 0.9rem;
+    --font-size-md: 1rem;
+
+    /* =====================
+       UI
+    ===================== */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --transition: 0.2s ease-in-out;
+
+    /* =====================
+       SPACING
+    ===================== */
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 2rem;
+    --space-lg: 4rem;
 }

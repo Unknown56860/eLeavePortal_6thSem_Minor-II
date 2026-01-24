@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{layout/base :: layout(~{ :: content}, ~{::pageStyle})}">
+<html lang="en" th:with="page='home'" 
+    th:replace="~{layout/base :: layout('home', ~{::content}, ~{::pageStyle})}">
 
 <th:block th:fragment="pageStyle">
     <link rel="stylesheet" th:href="@{/css/pages/home.css}">
 </th:block>
 
-<main th:fragment="content">
+<th:block th:fragment="content">
     <!-- HERO -->
     <section class="hero section">
         <div class="container grid-2">
@@ -18,7 +19,7 @@
                 </p>
             </div>
             <div class="hero-media">
-                <img th:src="@{/images/hero.jpg}" alt="hero">
+                <img th:src="@{/images/hero.svg}" alt="hero">
             </div>
         </div>
     </section>
@@ -73,7 +74,7 @@
                     <img th:src="@{/images/icons/thymeleaf.svg}" alt="ThymeLeaf">
                 </div>
                 <div class="tech-box">
-                    <img th:src="@{/images/icons/mysql.png}" alt="MySQL">
+                    <img th:src="@{/images/icons/mysql.svg}" alt="MySQL">
                 </div>
             </div>
         </div>
@@ -84,12 +85,13 @@
         <div class="container grid-2">
             <div>
                 <h2>Contact Us</h2>
-                <form method="post" action="/contact" class="contact-form">
+                <form id="contactForm" class="contact-form">
                     <input type="text" name="name" placeholder="Name" required>
                     <input type="email" name="email" placeholder="E-mail" required>
                     <textarea name="message" placeholder="Message" required></textarea>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
+                <p id="contactResponse" class=""></p>
             </div>
 
             <div>
@@ -128,6 +130,6 @@
             </div>
         </div>
     </section>
-</main>
+</th:block>
 
 </html>

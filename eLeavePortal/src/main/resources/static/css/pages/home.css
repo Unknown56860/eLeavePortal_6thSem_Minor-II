@@ -1,6 +1,7 @@
 /* =====================
    HERO
 ===================== */
+
 .hero {
     background: var(--bg-light);
 }
@@ -21,6 +22,7 @@
 /* =====================
    VISION
 ===================== */
+
 .vision {
     min-height: 70vh;
     display: flex;
@@ -28,29 +30,30 @@
     background:
         radial-gradient(
             circle at 20% 30%,
-            #8a1e71,
-            #17020f 70%
+            var(--vision-radial-start),
+            var(--vision-radial-end) 70%
         ),
         linear-gradient(
             135deg,
-            #170210,
-            #2a0f21
+            var(--vision-linear-start),
+            var(--vision-linear-end)
         );
-    color: #ebe5ea;
+    color: var(--secondary);
 }
 
 .vision h2,
 .vision p {
-    color: #ebe5ea;
+    color: var(--secondary);
 }
 
 /* =====================
    FEATURES
 ===================== */
+
 .feature-list {
     list-style: disc;
     margin-left: 1.2rem;
-    margin-bottom: 1rem;
+    margin-bottom: var(--space-sm);
 }
 
 .feature-media {
@@ -69,11 +72,12 @@
 /* =====================
    TECHNOLOGIES
 ===================== */
+
 .tech-grid {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 2rem;
+    gap: var(--space-md);
     margin-top: 2.5rem;
     flex-wrap: wrap;
 }
@@ -94,17 +98,36 @@
 /* =====================
    CONTACT
 ===================== */
+
 .contact-form input,
 .contact-form textarea {
     width: 100%;
     padding: 0.65rem;
     margin-bottom: 0.9rem;
-    border: 1px solid #dbd1d8;
-    font-size: 0.9rem;
+    border: 1px solid var(--border-muted);
+    font-size: var(--font-size-base);
 }
 
 .contact-form textarea {
     min-height: 110px;
+}
+
+.contact-response-success {
+    width: 100%;
+    padding: 0.65rem;
+    margin-bottom: 0.9rem;
+    font-size: var(--font-size-base);
+    border: 1px solid var(--color-success-dark);
+    background-color: var(--color-success-translucent);
+}
+
+.contact-response-failure {
+    width: 100%;
+    padding: 0.65rem;
+    margin-bottom: 0.9rem;
+    font-size: var(--font-size-base);
+    border: 1px solid var(--color-wrong-dark);
+    background-color: var(--color-wrong-translucent);
 }
 
 .developer-list {
@@ -132,6 +155,6 @@
 
 .developer span {
     display: block;
-    font-size: 0.85rem;
+    font-size: var(--font-size-sm);
     color: var(--text-light);
 }
