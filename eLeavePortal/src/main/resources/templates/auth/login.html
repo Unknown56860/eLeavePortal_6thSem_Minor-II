@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"
+      th:replace="~{layout/base :: layout('login', 'Login | eLeave Portal', ~{::content}, ~{::pageStyle})}">
+
+<th:block th:fragment="pageStyle">
+    <link rel="stylesheet" th:href="@{/css/pages/auth.css}">
+</th:block>
+
+<th:block th:fragment="content">
+
+    <div class="auth-wrapper">
+        <div class="auth-card">
+
+            <h2 class="auth-title">Login</h2>
+
+            <form id="loginForm">
+
+                <div class="form-group">
+                    <label class="form-label" for="userName">Username</label>
+                    <input class="form-input" type="text" id="userName" name="userName" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input class="form-input" type="password" id="password" name="password" required>
+                </div>
+                <p id="loginResponse" class=""></p>
+                <button class="btn btn-primary" type="submit">Login</button>
+
+            </form>
+
+            <div class="auth-footer">
+                Don’t have an account?
+                <a th:href="@{/register}">Register</a>
+            </div>
+
+        </div>
+    </div>
+
+</th:block>
+</html>

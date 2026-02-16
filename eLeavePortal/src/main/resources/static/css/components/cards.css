@@ -1,0 +1,17 @@
+.response-success {
+    width: 100%;
+    padding: 0.65rem;
+    margin-bottom: 0.9rem;
+    font-size: var(--font-size-base);
+    border: 1px solid var(--color-success-dark);
+    background-color: var(--color-success-translucent);
+}
+
+.response-failure {
+    width: 100%;
+    padding: 0.65rem;
+    margin-bottom: 0.9rem;
+    font-size: var(--font-size-base);
+    border: 1px solid var(--color-wrong-dark);
+    background-color: var(--color-wrong-translucent);
+}

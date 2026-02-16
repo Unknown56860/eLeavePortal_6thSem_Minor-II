@@ -2,13 +2,15 @@
 <header th:fragment="navbar" class="site-header">
     <div class="container header-inner">
         <div class="logo">
-            <img th:src="@{/images/logo/eLeave.svg}" alt="e-Leave">
+            <a href="/">
+                <img th:src="@{/images/logo/eLeave.svg}" alt="e-Leave">
+            </a>
         </div>
         <nav class="main-nav">
-            <a href="#about">About</a>
+            <a href="#vision">Vision</a>
             <a href="#features">Features</a>
             <a href="#contact">Contact</a>
-            <a href="#login" class="btn btn-primary">Login</a>
+            <a href="/login" class="btn btn-primary">Login</a>
         </nav>
     </div>
 </header>

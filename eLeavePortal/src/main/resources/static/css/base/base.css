@@ -1,0 +1,77 @@
+/* =====================
+   RESET & BASE
+===================== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding-top: 56px;
+    font-family: var(--font-base);
+    font-size: var(--font-size-md);
+    line-height: 1.6;
+    color: var(--text-dark);
+    background: var(--bg-body);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color var(--transition);
+}
+
+a:hover {
+    color: var(--accent);
+}
+
+h1, h2, h4 {
+    margin-bottom: 0.75rem;
+    line-height: 1.25;
+}
+
+input, select, button {
+    font-family: inherit;
+}
+
+/* =====================
+   STRUCTURE
+===================== */
+
+.section {
+    padding: var(--space-lg) 0;
+}
+
+.container {
+    width: min(90%, 1200px);
+    margin-inline: auto;
+}
+
+/* =====================
+   RESPONSIVE
+===================== */
+
+@media (max-width: 768px) {
+    .grid-2,
+    .grid-3 {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-media img,
+    .feature-media img {
+        max-height: 35vh;
+    }
+}

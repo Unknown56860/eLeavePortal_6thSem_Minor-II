@@ -1,0 +1,66 @@
+Data-Base schema:
+ leave-management
+   - user
+     - userId (pk)
+     - userName
+     - password
+     - role (student/ct/hod/warden/hostelController/admin)
+
+   - student
+     - studentId (pk)
+     - userId (fk)
+     - studentPersonalProfileId (fk)
+     - studentAcademinProfileId (fk)
+
+   - studentPersonalProfile
+     - studentPersonalProfileId (pk)
+     - student personal details (name, mob, email...)
+
+   - studentAcademicProfile
+     - studentAcademicProfileId (pk)
+     - student academic details (class, hostel, course...)
+
+   - guardian
+     - guardianId (pk)
+     - studentId (fk)
+     - guardian details (name, mob, address...)
+
+   - ct
+     - ctId (pk)
+     - userId (fk)
+     - class teacher details (name, mob, class...)
+
+   - hod
+     - hodId (pk)
+     - userId (fk)
+     - HoD details (name, mob, batch...)
+
+   - warden
+     - wardenId (pk)
+     - userId (fk)
+     - hcId (fk)
+     - warden details (name, mob, hostel...)
+
+   - hc
+     - hcId (pk)
+     - userId (fk)
+     - hostel controller details (name, mob, cabin...)
+
+   - application
+     - applicationId (pk)
+     - startDate
+     - endDate
+     - reason
+     - and bla bla...
+     - lastUpdatedBy (student/ct/hod/warden)
+     - latestUpdateStatus (approved, rejected...)
+     - lastUpdateDate
+
+   - approvalRecord
+     - approvalId (pk)
+     - applicationId (fk)
+     - userId (fk)
+     - designation
+     - remark
+     - approvalStatus (approved, rejected...)
+     - approvalDate

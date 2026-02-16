@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" th:with="page='home'" 
-    th:replace="~{layout/base :: layout('home', ~{::content}, ~{::pageStyle})}">
+<html lang="en" th:replace="~{layout/base :: layout('home', 'eLeave Portal', ~{::content}, ~{::pageStyle})}">
 
 <th:block th:fragment="pageStyle">
     <link rel="stylesheet" th:href="@{/css/pages/home.css}">
@@ -25,7 +24,7 @@
     </section>
 
     <!-- VISION -->
-    <section class="vision section">
+    <section id="vision" class="vision section">
         <div class="container text-center">
             <h2>Our Vision</h2>
             <p>
@@ -48,7 +47,7 @@
                     <li>Transparent process</li>
                     <li>Inclusive environment</li>
                 </ul>
-                <a href="#" class="btn btn-secondary">Sign up</a>
+                <a th:href="@{/register}" class="btn btn-secondary">Sign up</a>
             </div>
             <div class="feature-media">
                 <img th:src="@{/images/features.svg}" alt="features">

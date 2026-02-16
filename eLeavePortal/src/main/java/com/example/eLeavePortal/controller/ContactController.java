@@ -21,8 +21,6 @@ public class ContactController {
 
     public ContactController(ContactService contactService){
         this.contactService = contactService;
-        
-        System.out.println("Contact ctrl init");
     }
 
     @PostMapping()
@@ -35,5 +33,4 @@ public class ContactController {
             Map.of("message", "Thank you! Your message has been received.")
         );
     }
-    
 }

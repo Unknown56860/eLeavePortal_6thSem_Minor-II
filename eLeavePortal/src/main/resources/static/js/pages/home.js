@@ -17,12 +17,12 @@ export function initHomeContact(){
 
         try{
             const response = await postJson("/contact", payload);
-            responseBox.className = "contact-response-success";
+            responseBox.className = "response-success";
             responseBox.textContent = response.message;
             form.reset();
         }
         catch (error){
-            responseBox.className = "contact-response-failure";
+            responseBox.className = "response-failure";
             responseBox.textContent = 
                 error.message || "Something went wrong. Please try again.";
         }

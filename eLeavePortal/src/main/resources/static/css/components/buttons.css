@@ -11,8 +11,14 @@
     color: var(--text-inverse);
 }
 
+
 .btn:hover {
     transform: translateY(-1px);
+}
+
+.btn-block {
+    width: 100%;
+    text-align: center;
 }
 
 .btn-primary {

@@ -1,0 +1,65 @@
+import { postJson } from "../core/http.js";
+
+export function initLogin() {
+    const form = document.getElementById("loginForm");
+    const responseBox = document.getElementById("loginResponse");
+
+    if (!form) return;
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const payload = {
+            userName: form.userName.value,
+            password: form.password.value
+        };
+
+        try {
+            const response = await postJson("/api/auth/login", payload);
+            responseBox.className = "response-success";
+            responseBox.textContent = response.message;
+            window.location.href = "/dashboard";
+        } catch (error) {
+            responseBox.className = "response-failure";
+            responseBox.textContent =
+                error.message || "Something went wrong. Please try again.";
+        }
+    });
+}
+
+export function initRegister() {
+    const form = document.getElementById("registerForm");
+    const responseBox = document.getElementById("registerResponse");
+
+    if (!form) return;
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const password = form.nPassword.value;
+        const confirmPassword = form.cPassword.value;
+
+        if (password !== confirmPassword) {
+            responseBox.className = "response-failure";
+            responseBox.textContent = "Passwords do not match.";
+            return;
+        }
+
+        const payload = {
+            userName: form.userName.value,
+            password: password,
+            role: form.userRole.value
+        };
+
+        try {
+            const response = await postJson("/api/auth/register", payload);
+            responseBox.className = "response-success";
+            responseBox.textContent = response.message;
+            window.location.href = "/login"
+        } catch (error) {
+            responseBox.className = "response-failure";
+            responseBox.textContent =
+                error.message || "Something went wrong. Please try again.";
+        }
+    });
+}
