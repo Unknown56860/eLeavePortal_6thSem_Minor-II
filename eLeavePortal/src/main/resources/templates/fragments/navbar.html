@@ -1,16 +1,81 @@
 <!-- HEADER -->
 <header th:fragment="navbar" class="site-header">
     <div class="container header-inner">
+
         <div class="logo">
             <a href="/">
                 <img th:src="@{/images/logo/eLeave.svg}" alt="e-Leave">
             </a>
         </div>
+
         <nav class="main-nav">
-            <a href="#vision">Vision</a>
-            <a href="#features">Features</a>
-            <a href="#contact">Contact</a>
-            <a href="/login" class="btn btn-primary">Login</a>
+
+            <span th:if="${sessionUserName == null}">
+                <a href="#vision">Vision</a>
+                <a href="#features">Features</a>
+                <a href="#contact">Contact</a>
+                <a href="/login" class="btn btn-primary">Login</a>
+            </span>
+
+            <span th:if="${sessionUserName != null}">
+
+                <span th:if="${sessionUserRole.name() == 'STUDENT'}">
+                    <a href="#">New Application</a>
+                    <a href="#">My Applications</a>
+                    <div class="user-menu">
+                        <button class="user-toggle" id="userToggle">
+                            <a href="#" th:text="${sessionUserName}">Username</a>
+                            <img th:src="@{/images/icons/profile-circle.svg}" alt="pfp">
+                        </button>
+                        <div class="user-dropdown" id="userDropdown">
+                            <a href="#">Profile</a>
+                            <a href="#" onclick="logoutHandler(event)">Logout</a>
+                        </div>
+                    </div>
+                </span>
+
+                <span th:if="${sessionUserRole.name() == 'CT' ||
+                            sessionUserRole.name() == 'HOD' ||
+                            sessionUserRole.name() == 'WARDEN' ||
+                            sessionUserRole.name() == 'HOSTEL_CONTROLLER'}">
+                    <a href="#">Applications</a>
+                    <a href="#">Students</a>
+                    <div class="user-menu">
+                        <button class="user-toggle" id="userToggle">
+                            <a href="#" th:text="${sessionUserName}">Username</a>
+                            <img th:src="@{/images/icons/profile-circle.svg}" alt="pfp">
+                        </button>
+                        <div class="user-dropdown" id="userDropdown">
+                            <a href="#">Profile</a>
+                            <a href="#" onclick="logoutHandler(event)">Logout</a>
+                        </div>
+                    </div>
+                </span>
+
+                <span th:if="${sessionUserRole.name() == 'ADMIN'}">
+                    <a href="#">Site Status</a>
+                    <a href="#">Applications</a>
+                    <a href="#">Students</a>
+                    <a href="#">Staff</a>
+                    <div class="user-menu">
+                        <button class="user-toggle" id="userToggle">
+                            <a href="#" th:text="${sessionUserName}">Username</a>
+                            <img th:src="@{/images/icons/profile-circle.svg}" alt="pfp">
+                        </button>
+                        <div class="user-dropdown" id="userDropdown">
+                            <a href="#">Change Password</a>
+                            <a href="#" onclick="logoutHandler(event)">Logout</a>
+                            <a href="#">Manage Admins</a>
+                            <a href="#">New User</a>
+                        </div>
+                    </div>
+                </span>
+                
+            </span>
         </nav>
     </div>
+
+    <script th:src="@{/js/pages/navbar.js}" type="module"></script>
+    
 </header>
+

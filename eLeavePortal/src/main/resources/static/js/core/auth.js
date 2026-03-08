@@ -1,4 +1,4 @@
-import { postJson } from "../core/http.js";
+import { postJson } from "./http.js";
 
 export function initLogin() {
     const form = document.getElementById("loginForm");
@@ -16,9 +16,10 @@ export function initLogin() {
 
         try {
             const response = await postJson("/api/auth/login", payload);
+
             responseBox.className = "response-success";
             responseBox.textContent = response.message;
-            window.location.href = "/dashboard";
+            window.location.href = "/applications";
         } catch (error) {
             responseBox.className = "response-failure";
             responseBox.textContent =
@@ -55,11 +56,46 @@ export function initRegister() {
             const response = await postJson("/api/auth/register", payload);
             responseBox.className = "response-success";
             responseBox.textContent = response.message;
-            window.location.href = "/login"
+            window.location.href = "/login";
         } catch (error) {
             responseBox.className = "response-failure";
             responseBox.textContent =
                 error.message || "Something went wrong. Please try again.";
         }
     });
+}
+
+export async function getSession() {
+  const response = await fetch("/session", {
+    method: "GET",
+    credentials: "include"
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch session data");
+  }
+
+  return await response.json();
+}
+
+export async function logout(path="/") {
+    try {
+        const response = await fetch('/api/auth/logout', {
+            method: 'POST',
+            credentials: 'include'
+        });
+
+        if (!response.ok) {
+            throw new Error('Logout request failed');
+        }
+
+        const data = await response.json();
+        console.log(data.message);
+
+        // Optional redirect after logout
+        window.location.href = path;
+
+    } catch (error) {
+        console.error('Error during logout:', error);
+    }
 }

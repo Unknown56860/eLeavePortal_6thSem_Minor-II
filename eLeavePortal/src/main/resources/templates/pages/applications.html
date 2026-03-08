@@ -1,0 +1,27 @@
+<!-- Show the list of applications -->
+ <!DOCTYPE html>
+<html lang="en"
+      th:replace="~{layout/base :: layout('applications', 'eLeave Portal | Applications', ~{::content}, ~{::pageStyle})}">
+
+<th:block th:fragment="pageStyle">
+    <link rel="stylesheet" th:href="@{/css/pages/auth.css}">
+</th:block>
+
+<th:block th:fragment="content">
+
+    <div class="auth-wrapper">
+        <div class="auth-card">
+
+            <h2 class="auth-title">Yay! You are logged in.</h2>
+            <h3>
+                Name: <span th:text="${sessionUserName}"></span>
+            </h3>
+            <h4>
+                Role: <span th:text="${sessionUserRole.name()}"></span>
+            </h4>
+
+        </div>
+    </div>
+
+</th:block>
+</html>

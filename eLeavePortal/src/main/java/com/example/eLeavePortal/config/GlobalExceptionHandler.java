@@ -1,4 +1,4 @@
-package com.example.eLeavePortal.exception;
+package com.example.eLeavePortal.config;
 
 import java.util.Map;
 

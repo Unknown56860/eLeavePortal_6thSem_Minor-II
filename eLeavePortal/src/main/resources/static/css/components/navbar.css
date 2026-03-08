@@ -49,3 +49,62 @@
 .main-nav .btn:hover {
     color: var(--text-inverse);
 }
+/* =====================
+   USER MENU
+===================== */
+
+.user-menu {
+    display: inline-block;
+    position: relative;
+    margin-left: 1.25rem;
+}
+
+.user-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: var(--font-size-base);
+    color: var(--text-dark);
+}
+
+.user-toggle img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* dropdown */
+
+.user-dropdown {
+    position: absolute;
+    right: 0;
+    top: 120%;
+    background: var(--bg-body);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    min-width: 140px;
+
+    display: none;
+    flex-direction: column;
+}
+
+.user-dropdown a {
+    padding: 0.6rem 0.9rem;
+    margin: 0;
+    display: block;
+    font-size: var(--font-size-base);
+}
+
+.user-dropdown a:hover {
+    background: var(--bg-muted);
+}
+
+/* visible state */
+.user-menu.open .user-dropdown {
+    display: flex;
+}

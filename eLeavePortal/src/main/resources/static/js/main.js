@@ -1,4 +1,4 @@
-import { initLogin, initRegister } from "./pages/auth.js";
+import { initLogin, initRegister } from "./core/auth.js";
 import {initHomeContact} from "./pages/home.js";
 
 const page = document.body.dataset.page;
@@ -12,6 +12,9 @@ switch (page){
         break;
     case "register":
         initRegister();
+        break;
+    case "dashboard":
+        console.log("Dashboard func. to be added...");
         break;
 
     default:

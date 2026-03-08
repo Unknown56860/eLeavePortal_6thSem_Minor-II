@@ -29,20 +29,39 @@ public class AuthController {
         authService.register(userDto);
         return Map.of("message", "Registration successful.");
     }
-    
+
     // ================== Login ==================
     @PostMapping("/login")
     public Map<String, String> login(@Valid @RequestBody AuthUserDto userDto, HttpSession session) {
         UserEntity userEntity = authService.login(userDto);
-        session.setAttribute("USERNAME", userEntity.getUserName());
-        session.setAttribute("USERROLE", userEntity.getRole());
-        return Map.of("message", "Login successful.");
+
+        session.setAttribute("userId", userEntity.getUserId());
+        session.setAttribute("userName", userEntity.getUserName());
+        session.setAttribute("userRole", userEntity.getRole());
+
+        return Map.of(
+            "message", "Login successful."
+        );
+    }
+
+    @GetMapping("/session")
+    public Map<String, Object> getSession(HttpSession session){
+
+        return Map.of(
+            "userName", session.getAttribute("userName"),
+            "userRole", session.getAttribute("userRole")
+        );
     }
 
     // ================== Logout ==================
     @PostMapping("/logout")
-    public Map<String, String> logout(HttpSession session){
+    public Map<String, String> logout(HttpSession session) {
+
         session.invalidate();
-        return Map.of("message", "Logged out.");
+
+        return Map.of(
+            "message", "Logout successful."
+        );
     }
+
 }

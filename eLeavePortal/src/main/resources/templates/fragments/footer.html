@@ -1,6 +1,6 @@
 <!-- FOOTER -->
 <footer th:fragment="footer" class="site-footer">
-    <div class="container grid-3">
+    <div th:if="${sessionUserName == null}" class="container grid-3">
         <div>
             <h4>Follow Us</h4>
 
@@ -47,6 +47,7 @@
             <h4>Quick Links</h4>
             <a href="#">Privacy Policy</a><br>
             <a href="#">Terms of Service</a><br>
+            <a href="#">Admin login</a><br>
             <a href="#">Back to top</a>
         </div>
     </div>
