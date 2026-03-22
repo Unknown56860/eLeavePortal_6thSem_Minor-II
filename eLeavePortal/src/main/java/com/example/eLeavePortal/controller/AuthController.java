@@ -2,18 +2,13 @@ package com.example.eLeavePortal.controller;
 
 import java.util.Map;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import com.example.eLeavePortal.dto.AuthUserDto;
-import com.example.eLeavePortal.entity.UserEntity;
 import com.example.eLeavePortal.service.AuthService;
 
 @RestController
@@ -31,37 +26,42 @@ public class AuthController {
     }
 
     // ================== Login ==================
-    @PostMapping("/login")
-    public Map<String, String> login(@Valid @RequestBody AuthUserDto userDto, HttpSession session) {
-        UserEntity userEntity = authService.login(userDto);
+    // Taken care by spring security.
+    // @PostMapping("/login")
+    // public Map<String, String> login(@Valid @RequestBody AuthUserDto userDto, HttpSession session) {
+    //     UserEntity userEntity = authService.login(userDto);
 
-        session.setAttribute("userId", userEntity.getUserId());
-        session.setAttribute("userName", userEntity.getUserName());
-        session.setAttribute("userRole", userEntity.getRole());
+    //     session.setAttribute("userId", userEntity.getUserId());
+    //     session.setAttribute("userName", userEntity.getUserName());
+    //     session.setAttribute("userRole", userEntity.getRole());
 
-        return Map.of(
-            "message", "Login successful."
-        );
-    }
+    //     return Map.of(
+    //         "message", "Login successful."
+    //     );
+    // }
 
     @GetMapping("/session")
-    public Map<String, Object> getSession(HttpSession session){
+    public Map<String, Object> getSession(Authentication auth){
 
+        // Not needed since Spring Security handles all.
+        // HttpSession session.getUserName(), session.getUserPassword
+        
         return Map.of(
-            "userName", session.getAttribute("userName"),
-            "userRole", session.getAttribute("userRole")
+            "userName", auth.getName(),
+            "userRole", auth.getAuthorities()
         );
     }
 
     // ================== Logout ==================
-    @PostMapping("/logout")
-    public Map<String, String> logout(HttpSession session) {
+    // Taken care by Spring Security
+    // @PostMapping("/logout")
+    // public Map<String, String> logout(HttpSession session) {
 
-        session.invalidate();
+    //     session.invalidate();
 
-        return Map.of(
-            "message", "Logout successful."
-        );
-    }
+    //     return Map.of(
+    //         "message", "Logout successful."
+    //     );
+    // }
 
 }

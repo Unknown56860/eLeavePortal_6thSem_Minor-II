@@ -36,15 +36,16 @@ public class AuthService implements AuthServiceInterface {
         userRepository.save(user);
     }
 
-    @Override
-    public UserEntity login(AuthUserDto userDto){
-        UserEntity userEntity = userRepository.findByUserName(userDto.getUserName())
-            .orElseThrow(() -> new RuntimeException("User doesn't exist."));
+    // Taken care by Spring Security.
+    // @Override
+    // public UserEntity login(AuthUserDto userDto){
+    //     UserEntity userEntity = userRepository.findByUserName(userDto.getUserName())
+    //         .orElseThrow(() -> new RuntimeException("User doesn't exist."));
         
-        if(!passwordEncoder.matches(userDto.getPassword(), userEntity.getPassword())) {
-            throw new RuntimeException("Wrong password.");
-        }
+    //     if(!passwordEncoder.matches(userDto.getPassword(), userEntity.getPassword())) {
+    //         throw new RuntimeException("Wrong password.");
+    //     }
 
-        return userEntity;
-    }
+    //     return userEntity;
+    // }
 }

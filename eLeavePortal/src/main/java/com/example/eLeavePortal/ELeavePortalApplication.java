@@ -9,5 +9,4 @@ public class ELeavePortalApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ELeavePortalApplication.class, args);
 	}
-	
 }

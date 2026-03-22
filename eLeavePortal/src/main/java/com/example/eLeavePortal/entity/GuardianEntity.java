@@ -21,7 +21,7 @@ public class GuardianEntity {
 
     @OneToOne
     @JoinColumn(name = "user_detail_id", nullable = false)
-    private UserDetailEntity userDetail;
+    private UserContactEntity userDetail;
 
     @Column(nullable = false)
     private String relation;

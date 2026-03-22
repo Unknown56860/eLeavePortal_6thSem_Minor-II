@@ -4,12 +4,12 @@ import lombok.*;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "user_details")
+@Table(name = "user_contacts")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserDetailEntity {
+public class UserContactEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

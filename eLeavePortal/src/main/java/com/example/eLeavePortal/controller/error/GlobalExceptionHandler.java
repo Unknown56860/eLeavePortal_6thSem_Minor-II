@@ -1,4 +1,4 @@
-package com.example.eLeavePortal.config;
+package com.example.eLeavePortal.controller.error;
 
 import java.util.Map;
 
@@ -20,12 +20,13 @@ public class GlobalExceptionHandler {
             .body(Map.of("message", message));
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<Map<String, String>> handleGeneral(Exception e){
+    // Not needed, added specific pages for the error.
+    // @ExceptionHandler(Exception.class)
+    // public ResponseEntity<Map<String, String>> handleGeneral(Exception e){
 
-        String message = e.getMessage();
+    //     String message = e.getMessage();
 
-        return ResponseEntity.internalServerError()
-            .body(Map.of("message", "Server error: " + message));
-    }
+    //     return ResponseEntity.internalServerError()
+    //         .body(Map.of("message", "Server error: " + message));
+    // }
 }

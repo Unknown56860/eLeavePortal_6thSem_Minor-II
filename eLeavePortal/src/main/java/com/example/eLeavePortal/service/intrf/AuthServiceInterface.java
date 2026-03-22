@@ -7,5 +7,6 @@ public interface AuthServiceInterface {
     
     void register(AuthUserDto dto);
 
-    UserEntity login(AuthUserDto dto);
+    // Login not needed, taken care by Spring Security
+    // UserEntity login(AuthUserDto dto);
 }

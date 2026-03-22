@@ -1,6 +1,7 @@
 <!-- FOOTER -->
-<footer th:fragment="footer" class="site-footer">
-    <div th:if="${sessionUserName == null}" class="container grid-3">
+<footer th:fragment="footer" class="site-footer"
+    xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+    <div sec:authorize="isAnonymous()" class="container grid-3">
         <div>
             <h4>Follow Us</h4>
 

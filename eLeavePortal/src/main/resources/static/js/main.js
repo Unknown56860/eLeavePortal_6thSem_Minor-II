@@ -1,5 +1,5 @@
 import { initLogin, initRegister } from "./core/auth.js";
-import {initHomeContact} from "./pages/home.js";
+import { initHomeContact } from "./pages/home.js";
 
 const page = document.body.dataset.page;
 

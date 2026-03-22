@@ -14,7 +14,9 @@ if(toggle && menu){
     });
 }
 
-window.logoutHandler = function(event){
-    event.preventDefault();
-    logout();
-}
+document.getElementById("logoutBtn")
+    ?.addEventListener("click", (e) => {
+        e.preventDefault();
+        logout();
+    }
+);
