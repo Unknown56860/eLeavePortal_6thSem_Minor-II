@@ -11,9 +11,9 @@
         <nav class="main-nav">
 
             <span th:if="${sessionUserName == null}">
-                <a href="#vision">Vision</a>
-                <a href="#features">Features</a>
-                <a href="#contact">Contact</a>
+                <a href="/#vision">Vision</a>
+                <a href="/#features">Features</a>
+                <a href="/#contact">Contact</a>
                 <a href="/login" class="btn btn-primary">Login</a>
             </span>
 
@@ -22,6 +22,7 @@
                 <span th:if="${sessionUserRole.name() == 'STUDENT'}">
                     <a href="#">New Application</a>
                     <a href="#">My Applications</a>
+                    <a href="#">Faculties</a>
                     <div class="user-menu">
                         <button class="user-toggle" id="userToggle">
                             <a href="#" th:text="${sessionUserName}">Username</a>

@@ -3,6 +3,7 @@ package com.example.eLeavePortal.enums;
 public enum ApplicationStatusEnums {
     DRAFTED, 
     APPLIED,
+    CANCELLED,
 
     CT_APPROVED, 
     CT_ACTION_REQUIRED, 

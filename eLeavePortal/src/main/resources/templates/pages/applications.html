@@ -4,22 +4,22 @@
       th:replace="~{layout/base :: layout('applications', 'eLeave Portal | Applications', ~{::content}, ~{::pageStyle})}">
 
 <th:block th:fragment="pageStyle">
-    <link rel="stylesheet" th:href="@{/css/pages/auth.css}">
+    <link rel="stylesheet" th:href="@{/css/pages/applications.css}">
 </th:block>
 
 <th:block th:fragment="content">
 
-    <div class="auth-wrapper">
-        <div class="auth-card">
-
-            <h2 class="auth-title">Yay! You are logged in.</h2>
-            <h3>
-                Name: <span th:text="${sessionUserName}"></span>
-            </h3>
-            <h4>
-                Role: <span th:text="${sessionUserRole.name()}"></span>
-            </h4>
-
+    <div th:each="applicationInfo: ${applications}" class="application-card">
+        <img th:src="@{${applicationInfo.studentProfileImg}}" alt="pfp" class="application-avatar">
+        <div class="application-content">
+            <div class="application-left"> 
+                <h4 th:text="${applicationInfo.studentName + ' · ' + applicationInfo.studentRoll}">Roll·Name</h4>
+                <p th:text="'Sub: ' + ${applicationInfo.leaveReason}">Sub: Leave request</p>
+            </div>
+            <div class="application-right">
+                <h4 th:text="${applicationInfo.status}">Drafted</h4>
+                <p th:text="${applicationInfo.startDate + ' - ' + applicationInfo.endDate}">01/01/2000 - 31/12/2000</p>
+            </div>
         </div>
     </div>
 

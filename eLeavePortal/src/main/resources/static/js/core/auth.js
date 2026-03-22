@@ -19,7 +19,7 @@ export function initLogin() {
 
             responseBox.className = "response-success";
             responseBox.textContent = response.message;
-            window.location.href = "/applications";
+            window.location.href = "/application/all";
         } catch (error) {
             responseBox.className = "response-failure";
             responseBox.textContent =
