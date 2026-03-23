@@ -1,1 +1,41 @@
-There is some unknown error!
+<!DOCTYPE html>
+<html lang="en"
+      th:replace="~{layout/base :: layout('generalError', 'eLeave Portal | Error', ~{::content}, ~{::pageStyle})}">
+
+<th:block th:fragment="pageStyle">
+    <link rel="stylesheet" th:href="@{/css/pages/home.css}">
+    <link rel="stylesheet" th:href="@{/css/pages/error.css}">
+</th:block>
+
+<th:block th:fragment="content">
+    <section class="error-page section">
+        <div class="container grid-2">
+
+            <div class="hero-media">
+                <img th:src="@{/images/error/Bug_fixing-pana.svg}" alt="General Error">
+            </div>
+
+            <div class="error-content">
+                <h1>Error</h1>
+                <h2>Something Went Wrong</h2>
+
+                <p>
+                    An unexpected error occurred.
+                    Please try again or return to the home page.
+                </p>
+
+                <div class="error-actions">
+                    <a href="javascript:history.back()" class="btn btn-secondary">
+                        Go Back
+                    </a>
+
+                    <a th:href="@{/}" class="btn btn-primary">
+                        Go to Home
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</th:block>
+</html>

@@ -1,1 +1,41 @@
-You do not have permission to access this resource.
+<!DOCTYPE html>
+<html lang="en"
+      th:replace="~{layout/base :: layout('403error', 'eLeave Portal | 403 Error', ~{::content}, ~{::pageStyle})}">
+
+<th:block th:fragment="pageStyle">
+    <link rel="stylesheet" th:href="@{/css/pages/home.css}">
+    <link rel="stylesheet" th:href="@{/css/pages/error.css}">
+</th:block>
+
+<th:block th:fragment="content">
+    <section class="error-page section">
+        <div class="container grid-2">
+            
+            <div class="hero-media">
+                <img th:src="@{/images/error/403_Error_Forbidden-amico.svg}" alt="403 Access Denied">
+            </div>
+
+            <div class="error-content">
+                <h1>403</h1>
+                <h2>Access Denied</h2>
+
+                <p>
+                    You do not have permission to access this resource.
+                    Please go back to the previous page or return to the home page.
+                </p>
+
+                <div class="error-actions">
+                    <a href="javascript:history.back()" class="btn btn-secondary">
+                        Go Back
+                    </a>
+
+                    <a th:href="@{/}" class="btn btn-primary">
+                        Go to Home
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</th:block>
+</html>

@@ -1,0 +1,42 @@
+/* =====================
+   ERROR PAGE
+===================== */
+
+.error-page {
+    min-height: calc(100vh - 56px);
+    display: flex;
+    align-items: center;
+    background: var(--bg-light);
+}
+
+.error-content h1 {
+    font-size: 4rem;
+    color: var(--primary);
+    margin-bottom: 0.25rem;
+}
+
+.error-content h2 {
+    margin-bottom: var(--space-sm);
+}
+
+.error-content p {
+    color: var(--text-light);
+    margin-bottom: var(--space-md);
+    max-width: 420px;
+}
+
+.error-actions {
+    display: flex;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    .error-content {
+        text-align: center;
+    }
+
+    .error-actions {
+        justify-content: center;
+    }
+}

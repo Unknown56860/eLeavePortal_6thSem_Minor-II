@@ -1,1 +1,41 @@
-There are some internal server error. Try again later!
+<!DOCTYPE html>
+<html lang="en"
+      th:replace="~{layout/base :: layout('500error', 'eLeave Portal | 500 Error', ~{::content}, ~{::pageStyle})}">
+
+<th:block th:fragment="pageStyle">
+    <link rel="stylesheet" th:href="@{/css/pages/home.css}">
+    <link rel="stylesheet" th:href="@{/css/pages/error.css}">
+</th:block>
+
+<th:block th:fragment="content">
+    <section class="error-page section">
+        <div class="container grid-2">
+            
+            <div class="hero-media">
+                <img th:src="@{/images/error/500_Internal_Server_Error-amico.svg}" alt="500 Server Error">
+            </div>
+
+            <div class="error-content">
+                <h1>500</h1>
+                <h2>Server Error</h2>
+
+                <p>
+                    Something went wrong on our side.
+                    Please try again later or return to the home page.
+                </p>
+
+                <div class="error-actions">
+                    <a href="javascript:history.back()" class="btn btn-secondary">
+                        Go Back
+                    </a>
+
+                    <a th:href="@{/}" class="btn btn-primary">
+                        Go to Home
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</th:block>
+</html>
