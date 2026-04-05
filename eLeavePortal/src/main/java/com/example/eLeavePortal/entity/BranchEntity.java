@@ -4,10 +4,9 @@ import lombok.*;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "branches", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "branch")
-})
-@Data
+@Table(name = "branches")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -17,6 +16,6 @@ public class BranchEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long branchId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String branch;
 }

@@ -1,0 +1,190 @@
+/* =====================
+   PROFILE HEADER
+===================== */
+
+.profile-header {
+    align-items: center;
+    margin-bottom: var(--space-md);
+}
+
+.profile-avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-avatar img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--border-light);
+    background: var(--bg-light);
+}
+
+/* left column centered vertically */
+.profile-header.grid-2 {
+    align-items: center;
+}
+
+/* identity spacing */
+.profile-identity h2 {
+    margin: 0;
+    font-size: 1.6rem;
+}
+
+.profile-subtitle {
+    color: var(--text-light);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-sm);
+}
+
+/* action buttons */
+.profile-actions-inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+/* section titles */
+.profile-section h3 {
+    margin-bottom: var(--space-sm);
+}
+
+.profile-divider {
+    border: none;
+    border-top: 1px solid var(--border-light);
+    margin: var(--space-md) 0;
+}
+
+/* =====================
+   PROFILE FORM
+===================== */
+
+.profile-page form {
+    max-width: 100%;
+}
+
+/* inputs nicer */
+.form-field input,
+.form-field select {
+    padding: 0.6rem 0.65rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-muted);
+    font-size: var(--font-size-base);
+    background: var(--bg-light);
+    transition: border var(--transition), background var(--transition);
+}
+
+.form-field input:focus,
+.form-field select:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: var(--bg-body);
+}
+
+/* headings spacing */
+.profile-section h3 {
+    margin-top: var(--space-sm);
+    margin-bottom: var(--space-sm);
+}
+
+/* divider spacing */
+.profile-divider {
+    margin: var(--space-md) 0;
+}
+
+/* form layout tightening */
+.profile-section .grid-2 {
+    margin-top: var(--space-sm);
+}
+
+/* save button area */
+.profile-actions {
+    margin-top: var(--space-lg);
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* large primary save */
+.profile-actions .btn {
+    padding: 0.7rem 1.8rem;
+    font-size: var(--font-size-md);
+}
+
+/* header alignment reuse */
+.profile-header {
+    align-items: center;
+}
+
+/* avatar already defined but slightly larger for edit */
+.profile-page .profile-avatar img {
+    width: 170px;
+    height: 170px;
+}
+
+/* subtle section card feel */
+.profile-section {
+    padding: var(--space-sm) 0;
+}
+
+/* better select arrow spacing */
+.form-field select {
+    cursor: pointer;
+}
+
+/* full width fields when single */
+.profile-section > .form-field {
+    max-width: 600px;
+}
+
+/* responsive spacing */
+@media (max-width: 768px) {
+    .profile-actions {
+        justify-content: stretch;
+    }
+
+    .profile-actions .btn {
+        width: 100%;
+    }
+}
+
+/* =====================
+   FORM
+===================== */
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+/* value text */
+.form-field p {
+    margin: 0;
+    font-weight: 500;
+}
+
+.form-field label {
+    font-size: var(--font-size-sm);
+    color: var(--text-light);
+}
+
+.form-field input,
+.form-field select {
+    padding: 0.55rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-muted);
+    font-size: var(--font-size-base);
+}
+
+.form-field input:focus,
+.form-field select:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.profile-actions {
+    margin-top: var(--space-md);
+}
+

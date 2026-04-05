@@ -5,7 +5,8 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "class_teachers")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -19,7 +20,15 @@ public class ClassTeacherEntity {
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private UserEntity user;
 
-    @OneToOne
-    @JoinColumn(name = "batch_branch_section_id", nullable = false, unique = true)
-    private BatchBranchSectionEntity batchBranchSection;
+    @ManyToOne
+    @JoinColumn(name = "batch", nullable = false)
+    private BatchEntity batch;
+
+    @ManyToOne
+    @JoinColumn(name = "branch", nullable = false)
+    private BranchEntity branch;
+
+    @ManyToOne
+    @JoinColumn(name = "section", nullable = false)
+    private SectionEntity section;
 }

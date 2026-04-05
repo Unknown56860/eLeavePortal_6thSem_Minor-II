@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en"
+    th:replace="~{layout/base :: layout('profile', 'Profile Details | eLeave Portal', ~{::content}, ~{::pageStyle})}">
+
+<th:block th:fragment="pageStyle">
+<link rel="stylesheet" th:href="@{/css/pages/profile.css}">
+</th:block>
+
+<th:block th:fragment="content">
+
+<section class="section profile-page">
+<div class="container">
+
+<!-- ================= HEADER ================= -->
+<div class="profile-header grid-2">
+
+    <div class="profile-avatar">
+        <img th:src="${profile.pfpUrl != null ? profile.pfpUrl : '/images/icons/profile-circle.svg'}">
+    </div>
+
+    <div class="profile-identity">
+        <h2 th:text="${profile.username}"></h2>
+        <p class="profile-subtitle">Profile Details</p>
+
+        <!-- self -->
+        <div sec:authorize="isAuthenticated()">
+            <div th:if="${#authentication.name == username}">
+                <a href="/profile" class="btn btn-primary">Update Profile</a>
+            </div>
+        </div>
+
+        <!-- other users -->
+        <div sec:authorize="hasAnyAuthority('CT','HOD','WARDEN','HOSTEL_CONTROLLER','ADMIN')">
+            <div th:if="${#authentication.name != username}">
+                <form th:action="@{'/profile/' + ${username}}" method="post">
+                    <input type="hidden" name="_method" value="patch"/>
+                    <div class="btn-group">
+                        <button name="status" value="ACTIVE" class="btn btn-success">Approve</button>
+                        <button name="status" value="RESTRICTED" class="btn btn-warning">Restrict</button>
+                        <button name="status" value="SUSPENDED" class="btn btn-danger">Suspend</button>
+                        <button name="status" value="INCOMPLETE" class="btn btn-muted">Incomplete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<hr class="profile-divider">
+
+<!-- ================= CONTACT ================= -->
+
+<div class="profile-section">
+    <h3>Contact Info</h3>
+
+    <div class="grid-2">
+
+        <div class="form-field">
+            <label>Name</label>
+            <p th:text="${profile.name}"></p>
+        </div>
+
+        <div class="form-field">
+            <label>Mobile</label>
+            <p th:text="${profile.mobile}"></p>
+        </div>
+
+        <div class="form-field">
+            <label>Whatsapp</label>
+            <p th:text="${profile.whatsapp}"></p>
+        </div>
+
+        <div class="form-field">
+            <label>Personal Mail</label>
+            <p th:text="${profile.email}"></p>
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= STUDENT ================= -->
+
+<div th:if="${profile.role.name() == 'STUDENT'}" class="profile-section">
+
+    <hr class="profile-divider">
+    <h3>Student Personal</h3>
+
+    <div class="form-field">
+        <label>Home Address</label>
+        <p th:text="${profile.homeAddress}"></p>
+    </div>
+
+    <h3>Academic</h3>
+
+    <div class="grid-2">
+
+        <div class="form-field">
+            <label>Registration Number</label>
+            <p th:text="${profile.regNumber}"></p>
+        </div>
+
+        <div class="form-field">
+            <label>Roll Number</label>
+            <p th:text="${profile.rollNumber}"></p>
+        </div>
+
+        <div class="form-field">
+            <label>College Mail</label>
+            <p th:text="${profile.collegeMail}"></p>
+        </div>
+
+        <div class="form-field">
+            <label>Batch</label>
+            <p th:each="b : ${batches}" th:if="${b.batchId == profile.batchId}" th:text="${b.batch}"></p>
+        </div>
+
+        <div class="form-field">
+            <label>Branch</label>
+            <p th:each="b : ${branches}" th:if="${b.branchId == profile.branchId}" th:text="${b.branch}"></p>
+        </div>
+
+        <div class="form-field">
+            <label>Section</label>
+            <p th:each="s : ${sections}" th:if="${s.id == profile.sectionId}" th:text="${s.section}"></p>
+        </div>
+
+        <div class="form-field">
+            <label>Hostel</label>
+            <p th:each="h : ${hostels}" th:if="${h.hostelId == profile.hostelId}" th:text="${h.name}"></p>
+        </div>
+
+        <div class="form-field">
+            <label>Room</label>
+            <p th:text="${profile.hostelRoom}"></p>
+        </div>
+
+    </div>
+
+    <h3>Faculties</h3>
+
+    <div class="grid-2">
+
+        <div class="form-field">
+            <label>Class Teacher</label>
+            <p th:each="ct : ${classTeachers}" th:if="${ct.classTeacherId == profile.classTeacherId}" th:text="${ct.user.userContact.name}"></p>
+        </div>
+
+        <div class="form-field">
+            <label>HoD</label>
+            <p th:each="hod : ${hods}" th:if="${hod.hodId == profile.hodId}" th:text="${hod.user.userContact.name}"></p>
+        </div>
+
+        <div class="form-field">
+            <label>Warden</label>
+            <p th:each="w : ${wardens}" th:if="${w.wardenId == profile.wardenId}" th:text="${w.user.userContact.name}"></p>
+        </div>
+
+        <div class="form-field">
+            <label>Hostel Controller</label>
+            <p th:each="hc : ${hostelControllers}" th:if="${hc.hcId == profile.hostelControllerId}" th:text="${hc.user.userContact.name}"></p>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ================= CT ================= -->
+
+<div th:if="${profile.role.name() == 'CT'}" class="profile-section">
+
+    <hr class="profile-divider">
+    <h3>Class Teacher</h3>
+
+    <div class="grid-2">
+
+        <div class="form-field">
+            <label>Batch</label>
+            <p th:each="b : ${batches}" th:if="${b.batchId == profile.batchId}" th:text="${b.batch}"></p>
+        </div>
+
+        <div class="form-field">
+            <label>Branch</label>
+            <p th:each="b : ${branches}" th:if="${b.branchId == profile.branchId}" th:text="${b.branch}"></p>
+        </div>
+
+        <div class="form-field">
+            <label>Section</label>
+            <p th:each="s : ${sections}" th:if="${s.id == profile.sectionId}" th:text="${s.section}"></p>
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= HOD ================= -->
+
+<div th:if="${profile.role.name() == 'HOD'}" class="profile-section">
+
+    <hr class="profile-divider">
+    <h3>HOD</h3>
+
+    <div class="grid-2">
+
+        <div class="form-field">
+            <label>Batch</label>
+            <p th:each="b : ${batches}" th:if="${b.batchId == profile.batchId}" th:text="${b.batch}"></p>
+        </div>
+
+        <div class="form-field">
+            <label>Branch</label>
+            <p th:each="b : ${branches}" th:if="${b.branchId == profile.branchId}" th:text="${b.branch}"></p>
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= WARDEN ================= -->
+
+<div th:if="${profile.role.name() == 'WARDEN'}" class="profile-section">
+
+    <hr class="profile-divider">
+    <h3>Warden</h3>
+
+    <div class="form-field">
+        <label>Hostel</label>
+        <p th:each="h : ${hostels}" th:if="${h.hostelId == profile.hostelId}" th:text="${h.name}"></p>
+    </div>
+
+    <div class="form-field">
+        <label>Hostel Controller</label>
+        <p th:each="hc : ${hostelControllers}" th:if="${hc.hcId == profile.hostelControllerId}" th:text="${hc.user.userContact.name}"></p>
+    </div>
+
+</div>
+
+</div>
+</section>
+
+</th:block>
+</html>

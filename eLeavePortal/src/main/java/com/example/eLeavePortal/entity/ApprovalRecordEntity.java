@@ -10,7 +10,8 @@ import com.example.eLeavePortal.enums.ApplicationStatusEnums;
 
 @Entity
 @Table(name = "approval_records")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

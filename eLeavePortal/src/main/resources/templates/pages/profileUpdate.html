@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en"
+      th:replace="~{layout/base :: layout('profile', 'Update Profile', ~{::content}, ~{::pageStyle})}">
+
+<th:block th:fragment="pageStyle">
+    <link rel="stylesheet" th:href="@{/css/pages/profile.css}">
+</th:block>
+
+<th:block th:fragment="content">
+
+<section class="section profile-page">
+<div class="container">
+
+<form th:action="@{/profile}" th:object="${profile}" method="post">
+
+<!-- ================= HEADER ================= -->
+    <div class="profile-header grid-2">
+
+        <div class="profile-avatar">
+            <img th:src="${profile.pfpUrl != null ? profile.pfpUrl : '/images/icons/profile-circle.svg'}">
+        </div>
+
+        <div class="profile-identity">
+            <h2 th:text="${profile.username}"></h2>
+            <p class="profile-subtitle">Account Profile</p>
+        </div>
+
+    </div>
+
+    <hr class="profile-divider">
+
+<!-- ================= CONTACT ================= -->
+
+    <div class="profile-section">
+        <h3>Contact Info</h3>
+
+        <div class="grid-2">
+
+            <div class="form-field">
+                <label>Name</label>
+                <input type="text" th:field="*{name}" required>
+            </div>
+
+            <div class="form-field">
+                <label>Mobile</label>
+                <input type="text" th:field="*{mobile}" required>
+            </div>
+
+            <div class="form-field">
+                <label>Whatsapp</label>
+                <input type="text" th:field="*{whatsapp}" required>
+            </div>
+
+            <div class="form-field">
+                <label>Personal Mail</label>
+                <input type="text" th:field="*{email}" required>
+            </div>
+
+        </div>
+    </div>
+
+<!-- ================= STUDENT ================= -->
+
+    <div sec:authorize="hasAuthority('STUDENT')" class="profile-section">
+
+        <hr class="profile-divider">
+        <h3>Student Personal</h3>
+
+        <div class="form-field">
+            <label>Home Address</label>
+            <input type="text" th:field="*{homeAddress}" required>
+        </div>
+
+        <h3>Academic</h3>
+
+        <div class="grid-2">
+
+            <div class="form-field">
+                <label>Registration Number</label>
+                <input type="text" th:field="*{regNumber}" required>
+            </div>
+
+            <div class="form-field">
+                <label>Roll Number</label>
+                <input type="text" th:field="*{rollNumber}" required>
+            </div>
+
+            <div class="form-field">
+                <label>College Mail</label>
+                <input type="text" th:field="*{collegeMail}" required>
+            </div>
+
+            <div class="form-field">
+                <label>Batch</label>
+                <select th:field="*{batchId}" required>
+                    <option value="">Select</option>
+                    <option th:each="b: ${batches}" th:value="${b.batchId}" th:text="${b.batch}"></option>
+                </select>
+            </div>
+
+            <div class="form-field">
+                <label>Branch</label>
+                <select th:field="*{branchId}" required>
+                    <option value="">Select</option>
+                    <option th:each="b: ${branches}" th:value="${b.branchId}" th:text="${b.branch}"></option>
+                </select>
+            </div>
+
+            <div class="form-field">
+                <label>Section</label>
+                <select th:field="*{sectionId}" required>
+                    <option value="">Select</option>
+                    <option th:each="s: ${sections}" th:value="${s.id}" th:text="${s.section}"></option>
+                </select>
+            </div>
+
+            <div class="form-field">
+                <label>Hostel</label>
+                <select th:field="*{hostelId}" required>
+                    <option value="">Select</option>
+                    <option th:each="h: ${hostels}" th:value="${h.hostelId}" th:text="${h.name}"></option>
+                </select>
+            </div>
+
+            <div class="form-field">
+                <label>Room</label>
+                <input type="text" th:field="*{hostelRoom}" placeholder="Enter 0 if living outside." required>
+            </div>
+
+        </div>
+
+        <h3>Faculties</h3>
+        <div class="grid-2">
+            <div class="form-field">
+                <label>Class Teacher</label>
+                <select th:field="*{classTeacherId}" required>
+                    <option value="">Select</option>
+                    <option th:each="ct: ${classTeachers}" th:value="${ct.classTeacherId}" th:text="${ct.user.userContact.name}"></option>
+                </select>
+            </div>
+
+            <div class="form-field">
+                <label>HoD</label>
+                <select th:field="*{hodId}" required>
+                    <option value="">Select</option>
+                    <option th:each="hd: ${hods}" th:value="${hd.hodId}" th:text="${hd.user.userContact.name}"></option>
+                </select>
+            </div>
+
+            <div class="form-field">
+                <label>Warden</label>
+                <select th:field="*{wardenId}" required>
+                    <option value="">Select</option>
+                    <option th:each="w: ${wardens}" th:value="${w.wardenId}" th:text="${w.user.userContact.name}"></option>
+                </select>
+            </div>
+
+            <div class="form-field">
+                <label>Hostel Controller</label>
+                <select th:field="*{hostelControllerId}" required>
+                    <option value="">Select</option>
+                    <option th:each="hc: ${hostelControllers}" th:value="${hc.hcId}" th:text="${hc.user.userContact.name}"></option>
+                </select>
+            </div>
+
+        </div>
+
+    </div>
+
+<!-- ================= CT ================= -->
+
+    <div sec:authorize="hasAuthority('CT')" class="profile-section">
+
+        <hr class="profile-divider">
+        <h3>Class Teacher</h3>
+
+        <div class="grid-2">
+
+            <div class="form-field">
+                <label>Batch</label>
+                <select th:field="*{batchId}" required>
+                    <option value="">Select</option>
+                    <option th:each="b: ${batches}" th:value="${b.batchId}" th:text="${b.batch}"></option>
+                </select>
+            </div>
+
+            <div class="form-field">
+                <label>Branch</label>
+                <select th:field="*{branchId}" required>
+                    <option value="">Select</option>
+                    <option th:each="b: ${branches}" th:value="${b.branchId}" th:text="${b.branch}"></option>
+                </select>
+            </div>
+
+            <div class="form-field">
+                <label>Section</label>
+                <select th:field="*{sectionId}" required>
+                    <option value="">Select</option>
+                    <option th:each="s: ${sections}" th:value="${s.id}" th:text="${s.section}"></option>
+                </select>
+            </div>
+
+        </div>
+    </div>
+
+<!-- ================= HOD ================= -->
+
+    <div sec:authorize="hasAuthority('HOD')" class="profile-section">
+
+        <hr class="profile-divider">
+        <h3>HOD</h3>
+
+        <div class="grid-2">
+
+            <div class="form-field">
+                <label>Batch</label>
+                <select th:field="*{batchId}" required>
+                    <option value="">Select</option>
+                    <option th:each="b: ${batches}" th:value="${b.batchId}" th:text="${b.batch}"></option>
+                </select>
+            </div>
+
+            <div class="form-field">
+                <label>Branch</label>
+                <select th:field="*{branchId}" required>
+                    <option value="">Select</option>
+                    <option th:each="b: ${branches}" th:value="${b.branchId}" th:text="${b.branch}"></option>
+                </select>
+            </div>
+
+        </div>
+    </div>
+
+<!-- ================= WARDEN ================= -->
+
+    <div sec:authorize="hasAuthority('WARDEN')" class="profile-section">
+
+        <hr class="profile-divider">
+        <h3>Warden</h3>
+
+        <div class="form-field">
+            <label>Hostel</label>
+            <select th:field="*{hostelId}" required>
+                <option value="">Select</option>
+                <option th:each="h: ${hostels}" th:value="${h.hostelId}" th:text="${h.name}"></option>
+            </select>
+        </div>
+
+        <div class="form-field">
+            <label>Hostel Controller</label>
+            <select th:field="*{hostelControllerId}" required>
+                <option value="">Select</option>
+                <option th:each="hc: ${hostelControllers}" th:value="${hc.hcId}" th:text="${hc.user.userContact.name}"></option>
+            </select>
+        </div>
+
+    </div>
+
+    <div class="profile-actions">
+        <button type="submit" class="btn btn-success">Save Profile</button>
+    </div>
+
+</form>
+
+</div>
+</section>
+
+</th:block>
+</html>

@@ -36,3 +36,49 @@
 .btn-secondary:hover {
     background: var(--primary-dark);
 }
+
+/* =====================
+   BUTTON VARIANTS
+===================== */
+
+.btn-success {
+    background: var(--color-success-dark);
+}
+
+.btn-success:hover {
+    background: var(--color-success);
+}
+
+.btn-warning {
+    background: var(--color-warning-dark);
+    color: var(--text-dark);
+}
+
+.btn-warning:hover {
+    background: var(--color-warning);
+}
+
+.btn-danger {
+    background: var(--color-wrong-dark);
+}
+
+.btn-danger:hover {
+    background: var(--color-wrong);
+}
+
+.btn-muted {
+    background: var(--border-muted);
+    color: var(--text-dark);
+}
+
+.btn-muted:hover {
+    background: var(--text-muted);
+}
+
+/* group buttons nicely */
+.btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: var(--space-xs);
+}

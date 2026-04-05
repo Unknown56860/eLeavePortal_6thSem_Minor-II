@@ -5,18 +5,19 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "student_personal_profiles")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class StudentPersonalProfileEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long studentPersonalProfileId;
+    private Long studentId;
 
     @OneToOne
-    @JoinColumn(name = "student_id", nullable = false, unique = true)
+    @MapsId
+    @JoinColumn(name = "student_id")
     private StudentEntity student;
 
     @Column(nullable = false)

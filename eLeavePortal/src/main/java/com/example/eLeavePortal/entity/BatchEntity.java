@@ -4,10 +4,9 @@ import lombok.*;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "batches", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "batch")
-})
-@Data
+@Table(name = "batches")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -17,6 +16,6 @@ public class BatchEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long batchId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String batch;
 }

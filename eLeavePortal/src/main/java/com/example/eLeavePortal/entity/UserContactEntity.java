@@ -5,18 +5,19 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "user_contacts")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class UserContactEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userDetailId;
+    private Long userId;
 
     @OneToOne
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    @MapsId
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 
     @Column(nullable = false)
@@ -30,4 +31,7 @@ public class UserContactEntity {
 
     @Column(nullable = false, unique = true)
     private String email;
+
+    @Column(length = 1000)
+    private String pfpUrl;
 }

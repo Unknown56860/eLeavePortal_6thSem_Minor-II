@@ -5,7 +5,8 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "hods")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -19,6 +20,11 @@ public class HodEntity {
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private UserEntity user;
 
-    @OneToOne(optional = false)
-    private BatchBranchEntity batchBranch;
+    @ManyToOne
+    @JoinColumn(name = "batch", nullable = false)
+    private BatchEntity batch;
+
+    @ManyToOne
+    @JoinColumn(name = "branch", nullable = false)
+    private BranchEntity branch;
 }

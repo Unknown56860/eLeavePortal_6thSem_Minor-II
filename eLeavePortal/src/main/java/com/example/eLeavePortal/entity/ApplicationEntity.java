@@ -3,6 +3,8 @@ package com.example.eLeavePortal.entity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.UpdateTimestamp;
+
 import lombok.*;
 import jakarta.persistence.*;
 
@@ -10,7 +12,8 @@ import com.example.eLeavePortal.enums.ApplicationStatusEnums;
 
 @Entity
 @Table(name = "applications")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -36,9 +39,10 @@ public class ApplicationEntity {
     @Column(length = 1500)
     private String explanation;
 
+    @Column(length = 1000)
     private String attachmentUrl;
 
-    @Column(nullable = false)
+    @UpdateTimestamp
     private LocalDateTime lastUpdateDate;
 
     @ManyToOne

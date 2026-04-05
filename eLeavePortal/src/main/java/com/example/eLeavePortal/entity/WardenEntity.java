@@ -5,7 +5,8 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "wardens")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -24,6 +25,6 @@ public class WardenEntity {
     private HostelControllerEntity hostelController;
 
     @OneToOne(optional = false)
-    @JoinColumn(name = "hostel_id", nullable = false, unique = true)
+    @JoinColumn(name = "hostel_id", nullable = false)
     private HostelEntity hostel;
 }

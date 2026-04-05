@@ -5,18 +5,19 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "student_academic_profiles")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class StudentAcademicProfileEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long studentAcademicProfileId;
+    private Long studentId;
 
     @OneToOne
-    @JoinColumn(name = "student_id", nullable = false, unique = true)
+    @MapsId
+    @JoinColumn(name = "student_id")
     private StudentEntity student;
 
     @Column(nullable = false, unique = true)
@@ -28,12 +29,21 @@ public class StudentAcademicProfileEntity {
     @Column(nullable = false, unique = true)
     private String collegeMail;
 
-    @ManyToOne(optional = false)
-    private BatchBranchSectionEntity batchBranchSection;
+    @ManyToOne
+    @JoinColumn(name = "batch", nullable = false)
+    private BatchEntity batch;
+
+    @ManyToOne
+    @JoinColumn(name = "branch", nullable = false)
+    private BranchEntity branch;
+
+    @ManyToOne
+    @JoinColumn(name = "section", nullable = false)
+    private SectionEntity section;
 
     @ManyToOne(optional = false)
     private HostelEntity hostel;
 
-    @ManyToOne(optional = false)
-    private HostelRoomsEntity hostelRoom;
+    @Column(nullable = false)
+    private String hostelRoom;
 }

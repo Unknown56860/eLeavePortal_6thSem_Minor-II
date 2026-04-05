@@ -4,6 +4,13 @@ export function initLogin() {
     const form = document.getElementById("loginForm");
     const responseBox = document.getElementById("loginResponse");
 
+    // show Spring Security ?error
+    const params = new URLSearchParams(window.location.search);
+    if (params.has("error")) {
+        responseBox.className = "response-failure";
+        responseBox.textContent = "Invalid username or password.";
+    }
+
     if (!form) return;
 
     form.addEventListener("submit", async (e) => {
