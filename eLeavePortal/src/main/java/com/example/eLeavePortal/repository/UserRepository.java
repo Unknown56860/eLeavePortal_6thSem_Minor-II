@@ -6,9 +6,16 @@ import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.eLeavePortal.entity.UserEntity;
+import java.util.List;
+import com.example.eLeavePortal.enums.RolesEnum;
+
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     Optional<UserEntity> findByUserName(String userName);
+    
     boolean existsByUserName(String userName);
+
+    List<UserEntity> findByRole(RolesEnum role);
+    List<UserEntity> findByRoleIn(List<RolesEnum> roles);
 }

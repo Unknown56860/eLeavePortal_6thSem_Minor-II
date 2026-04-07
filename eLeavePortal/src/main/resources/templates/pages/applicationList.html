@@ -4,19 +4,19 @@
       th:replace="~{layout/base :: layout('applications', 'eLeave Portal | Applications', ~{::content}, ~{::pageStyle})}">
 
 <th:block th:fragment="pageStyle">
-    <link rel="stylesheet" th:href="@{/css/pages/applications.css}">
+    <link rel="stylesheet" th:href="@{/css/pages/listView.css}">
 </th:block>
 
 <th:block th:fragment="content">
 
-    <div th:each="applicationInfo: ${applications}" class="application-card">
-        <img th:src="@{${applicationInfo.studentProfileImg}}" alt="pfp" class="application-avatar">
-        <div class="application-content">
-            <div class="application-left"> 
+    <div th:each="applicationInfo: ${applications}" class="item-card">
+        <img th:src="@{${applicationInfo.studentProfileImg}}" alt="pfp" class="profile-avatar">
+        <div class="list-content">
+            <div class="content-left"> 
                 <h4 th:text="${applicationInfo.studentName + ' · ' + applicationInfo.studentRoll}">Roll·Name</h4>
                 <p th:text="'Sub: ' + ${applicationInfo.leaveReason}">Sub: Leave request</p>
             </div>
-            <div class="application-right">
+            <div class="content-right">
                 <h4 th:text="${applicationInfo.status}">Drafted</h4>
                 <p th:text="${applicationInfo.startDate + ' - ' + applicationInfo.endDate}">01/01/2000 - 31/12/2000</p>
             </div>

@@ -23,52 +23,33 @@
                 <span sec:authorize="hasAuthority('STUDENT')">
                     <a href="#">New Application</a>
                     <a href="#">My Applications</a>
-                    <a href="#">Faculties</a>
-                    <div class="user-menu">
-                        <button class="user-toggle" id="userToggle">
-                            <a href="#" sec:authentication="name">Username</a>
-                            <img th:src="@{/images/icons/profile-circle.svg}" alt="pfp">
-                        </button>
-                        <div class="user-dropdown" id="userDropdown">
-                            <a href="#">Profile</a>
-                            <a id="logoutBtn">Logout</a>
-                        </div>
-                    </div>
+                    <a href="/profile/all/staff">Faculties</a>
                 </span>
 
                 <span sec:authorize="hasAnyAuthority('CT', 'HOD', 'WARDEN', 'HOSTEL_CONTROLLER')">
                     <a href="#">Applications</a>
-                    <a href="#">Students</a>
-                    <div class="user-menu">
-                        <button class="user-toggle" id="userToggle">
-                            <a href="#" sec:authentication="name">Username</a>
-                            <img th:src="@{/images/icons/profile-circle.svg}" alt="pfp">
-                        </button>
-                        <div class="user-dropdown" id="userDropdown">
-                            <a href="#">Profile</a>
-                            <a id="logoutBtn">Logout</a>
-                        </div>
-                    </div>
+                    <a href="/profile/all/students">Students</a>
+                    <a href="/profile/all/staff">Staff</a>
                 </span>
 
                 <span sec:authorize="hasAuthority('ADMIN')">
                     <a href="#">Site Status</a>
                     <a href="#">Applications</a>
-                    <a href="#">Students</a>
-                    <a href="#">Staff</a>
-                    <div class="user-menu">
-                        <button class="user-toggle" id="userToggle">
-                            <a href="#" sec:authentication="name">Username</a>
-                            <img th:src="@{/images/icons/profile-circle.svg}" alt="pfp">
-                        </button>
-                        <div class="user-dropdown" id="userDropdown">
-                            <a href="#">Change Password</a>
-                            <a id="logoutBtn">Logout</a>
-                            <a href="#">Manage Admins</a>
-                            <a href="#">New User</a>
-                        </div>
-                    </div>
+                    <a href="/profile/all/students">Students</a>
+                    <a href="/profile/all/staff">Staff</a>
                 </span>
+
+                <div class="user-menu">
+                    <button class="user-toggle" id="userToggle">
+                        <a href="#" sec:authentication="name">Username</a>
+                        <img th:src="@{/images/icons/profile-circle.svg}" alt="pfp">
+                    </button>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a th:href="@{'/profile/' + ${#authentication.name}}">Profile</a>
+                        <a id="logoutBtn">Logout</a>
+                        <!-- <a href="#">Manage Admins</a> -->
+                    </div>
+                </div>
                 
             </span>
         </nav>

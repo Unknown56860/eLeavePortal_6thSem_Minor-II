@@ -36,6 +36,5 @@ public class UserEntity {
     @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    @ColumnDefault("'INCOMPLETE'")
     private ProfileStatusEnums profileStatus = ProfileStatusEnums.INCOMPLETE;
 }

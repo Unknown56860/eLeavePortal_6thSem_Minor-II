@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-    th:replace="~{layout/base :: layout('profile', 'Profile Details | eLeave Portal', ~{::content}, ~{::pageStyle})}">
+    th:replace="~{layout/base :: layout('profileDetail', 'Profile Details | eLeave Portal', ~{::content}, ~{::pageStyle})}">
 
 <th:block th:fragment="pageStyle">
 <link rel="stylesheet" th:href="@{/css/pages/profile.css}">
@@ -19,20 +19,27 @@
     </div>
 
     <div class="profile-identity">
-        <h2 th:text="${profile.username}"></h2>
+        <h2 th:text="${profile.username}">Username</h2>
+        <h3 th:text="${profile.role.name()}">Role</h3>
         <p class="profile-subtitle">Profile Details</p>
 
         <!-- self -->
         <div sec:authorize="isAuthenticated()">
-            <div th:if="${#authentication.name == username}">
+            <div th:if="${#authentication.name == profile.username}">
                 <a href="/profile" class="btn btn-primary">Update Profile</a>
+                <a href="#" class="btn btn-secondary">Change Password</a>
             </div>
         </div>
 
         <!-- other users -->
         <div sec:authorize="hasAnyAuthority('CT','HOD','WARDEN','HOSTEL_CONTROLLER','ADMIN')">
-            <div th:if="${#authentication.name != username}">
-                <form th:action="@{'/profile/' + ${username}}" method="post">
+            <div th:if="${#authentication.name != profile.username and (
+                (#authorization.expression('hasAuthority(''ADMIN'')') and profile.role.name() != 'ADMIN')
+                or
+                (#authorization.expression('hasAnyAuthority(''CT'',''HOD'',''WARDEN'',''HOSTEL_CONTROLLER'')')
+                    and profile.role.name() == 'STUDENT')
+            )}">
+                <form th:action="@{'/profile/' + ${profile.username}}" method="post">
                     <input type="hidden" name="_method" value="patch"/>
                     <div class="btn-group">
                         <button name="status" value="ACTIVE" class="btn btn-success">Approve</button>
@@ -91,6 +98,7 @@
         <p th:text="${profile.homeAddress}"></p>
     </div>
 
+    <hr class="profile-divider">
     <h3>Academic</h3>
 
     <div class="grid-2">
@@ -137,6 +145,7 @@
 
     </div>
 
+    <hr class="profile-divider">
     <h3>Faculties</h3>
 
     <div class="grid-2">
@@ -228,7 +237,25 @@
 
     <div class="form-field">
         <label>Hostel Controller</label>
-        <p th:each="hc : ${hostelControllers}" th:if="${hc.hcId == profile.hostelControllerId}" th:text="${hc.user.userContact.name}"></p>
+        <p th:each="hc : ${hostelControllers}" 
+            th:if="${hc.hcId == profile.hostelControllerId}" 
+            th:text="${hc.user.userContact.name}"></p>
+    </div>
+
+</div>
+
+<!-- ================= HOSTEL CONTROLLER ================= -->
+
+<div th:if="${profile.role.name() == 'HOSTEL_CONTROLLER'}" class="profile-section">
+
+    <hr class="profile-divider">
+    <h3>Hostel Controller</h3>
+
+    <div class="form-field">
+        <label>Hostels</label>
+        <p th:each="h : ${hostels}" 
+            th:if="${profile.hostelIds != null and #lists.contains(profile.hostelIds, h.hostelId)}" 
+            th:text="${h.name}"></p>
     </div>
 
 </div>

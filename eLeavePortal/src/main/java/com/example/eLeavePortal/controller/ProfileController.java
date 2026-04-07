@@ -1,16 +1,11 @@
 package com.example.eLeavePortal.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.eLeavePortal.dto.ProfileDto;
 import com.example.eLeavePortal.enums.ProfileStatusEnums;
@@ -20,12 +15,13 @@ import com.example.eLeavePortal.service.ProfileService;
 import lombok.RequiredArgsConstructor;
 
 // # Profiles
-// POST   /profile	        // New profile data, also any profile change data 
-// GET    /profile	        // Profile update/edit page 
-// GET    /profile/all      // List of profiles of other users the current user can see 
-// GET    /profile/{id} 	// Single profile details of self or a different user 
-// PATCH  /profile/{id} 	// Update an existng profile, done by other user like change profile status 
-// DELETE /profile/{id}     // optional, maybe only classteacher or admin...
+// POST   /profile	                // add or update profile details 
+// GET    /profile	                // Profile edit page
+// GET    /profile/all/staff        // List of profiles of all faculties, any logged in user can see 
+// GET    /profile/all/student      // List of profiles of all students the current user(Students excluded) should to see 
+// GET    /profile/{username} 	    // Single profile details of any user (a student cannot see other student's profile)
+// PATCH  /profile/{username} 	    // Update profile status (Admins and faculties only)
+// DELETE /profile/{username}       // optional, maybe only classteacher or admin...
 
 @Controller
 @RequestMapping("/profile")
@@ -53,31 +49,60 @@ public class ProfileController {
     @PostMapping
     public String save(@ModelAttribute("profile") ProfileDto dto, Authentication auth) {
         profileService.saveProfile(auth.getName(), dto);
-        return "redirect:/{auth.getName()}";
+        return "redirect:/" + auth.getName();
     }
 
     @GetMapping("/{username}")
-    public String profileDetails(@PathVariable String username, Authentication auth, Model model) {
+    public String details(@PathVariable String username, Authentication auth, Model model) {
         addProfileAttributes(model, username);
         return "pages/profileDetails";
     }
 
     @PatchMapping("/{username}")
     public String updateStatus(@PathVariable String username, @RequestParam ProfileStatusEnums status) {
-        profileService.updateStatus(username, status);
-        return "redirect:/profile/{username}" + username;
+        profileService.updateProfileStatus(username, status);
+        return "redirect:/profile/" + username;
     }
 
-    public void addProfileAttributes(Model model, String username) {
-        ProfileDto dto = profileService.getProfile(username);
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'CT')")
+    @DeleteMapping("/{username}")
+    public String delete(@PathVariable String username, Authentication auth) {
+        return "redirect:/under-construction";
+    }
 
-        model.addAttribute("profile", dto);
+    @GetMapping("/all/staff")
+    public String allFaculty(Authentication auth, Model model) {
+        model.addAttribute("profiles",
+                profileService.getAllFaculty(auth.getName()));
+        addChargesLookup(model);
+        return "pages/profileList";
+    }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'CT', 'HOD', 'WARDEN', 'HOSTEL_CONTROLLER')")
+    @GetMapping("/all/students")
+    public String allStudents(Authentication auth, Model model) {
+        model.addAttribute("profiles",
+                profileService.getAllStudents(auth.getName()));
+        addChargesLookup(model);
+        return "pages/profileList";
+    }
+
+
+    private void addProfileAttributes(Model model, String username) {
+        model.addAttribute("profile", 
+                profileService.getProfile(username));
+        addChargesLookup(model);
+        addFacultiesLookup(model);
+    }
+
+    private void addChargesLookup(Model model) {
         model.addAttribute("batches", batchRepository.findAll());
         model.addAttribute("branches", branchRepository.findAll());
         model.addAttribute("sections", sectionRepository.findAll());
         model.addAttribute("hostels", hostelRepository.findAll());
+    }
 
+    private void addFacultiesLookup(Model model) {
         model.addAttribute("classTeachers", classTeacherRepository.findAll());
         model.addAttribute("hods", hodRepository.findAll());
         model.addAttribute("wardens", wardenRepository.findAll());

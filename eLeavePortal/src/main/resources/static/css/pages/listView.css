@@ -1,8 +1,8 @@
 /* =====================
-   APPLICATIONS PAGE
+   LIST PAGE
 ===================== */
 
-.application-card {
+.item-card {
     width: min(90%, 1200px);
     margin-inline: auto;
 
@@ -18,7 +18,7 @@
     background: var(--bg-light);
 }
 
-.application-avatar {
+.profile-avatar {
     width: 48px;
     height: 48px;
     object-fit: cover;
@@ -26,26 +26,26 @@
     flex-shrink: 0;
 }
 
-.application-content {
+.list-content {
     flex: 1;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.application-left h4,
-.application-right h4 {
+.content-left h4,
+.content-right h4 {
     margin: 0;
     font-size: var(--font-size-md);
 }
 
-.application-left p,
-.application-right p {
+.content-left p,
+.content-right p {
     margin: 0;
     font-size: var(--font-size-sm);
     color: var(--text-light);
 }
 
-.application-right {
+.content-right {
     text-align: right;
 }

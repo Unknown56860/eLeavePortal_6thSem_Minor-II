@@ -17,12 +17,14 @@ import lombok.Getter;
 public class CustomUserDetails implements UserDetails {
     
     private final UserEntity user;
-    private final String realName;
 
-    public CustomUserDetails(UserEntity user, String realName) {
-
+    public CustomUserDetails(UserEntity user) {
         this.user = user;
-        this.realName = realName;
+    }
+
+    public String getRealName() {
+        return user.getUserContact() != null ?
+            user.getUserContact().getName() : null;
     }
 
     public RolesEnum getRole() { return user.getRole(); }

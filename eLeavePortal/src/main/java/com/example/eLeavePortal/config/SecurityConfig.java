@@ -11,6 +11,7 @@ import com.example.eLeavePortal.security.CustomAuthEntryPoint;
 import com.example.eLeavePortal.security.CustomLoginSuccessHandler;
 import com.example.eLeavePortal.security.CustomUserDetailsService;
 
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
@@ -18,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 

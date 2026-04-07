@@ -8,7 +8,7 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
-public class NotFoundController implements ErrorController {
+public class ErrorCodeController implements ErrorController {
     
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request) {

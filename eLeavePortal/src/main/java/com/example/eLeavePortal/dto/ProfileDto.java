@@ -1,5 +1,8 @@
 package com.example.eLeavePortal.dto;
 
+import java.util.List;
+
+import com.example.eLeavePortal.enums.ProfileStatusEnums;
 import com.example.eLeavePortal.enums.RolesEnum;
 
 import lombok.Data;
@@ -9,6 +12,7 @@ public class ProfileDto {
 
     private String username;
     private RolesEnum role;
+    private ProfileStatusEnums status;
 
     // Contact
     private String name;
@@ -37,4 +41,8 @@ public class ProfileDto {
     private Long hodId;
     private Long wardenId;
     private Long hostelControllerId;
+
+    // Hostels
+    private List<Long> hostelIds;
+    
 }

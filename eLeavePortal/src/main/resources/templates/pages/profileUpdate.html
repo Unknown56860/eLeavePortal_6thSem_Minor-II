@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-      th:replace="~{layout/base :: layout('profile', 'Update Profile', ~{::content}, ~{::pageStyle})}">
+      th:replace="~{layout/base :: layout('profileUpdate', 'Update Profile', ~{::content}, ~{::pageStyle})}">
 
 <th:block th:fragment="pageStyle">
     <link rel="stylesheet" th:href="@{/css/pages/profile.css}">
@@ -59,11 +59,12 @@
         </div>
     </div>
 
+    <hr class="profile-divider">
+
 <!-- ================= STUDENT ================= -->
 
     <div sec:authorize="hasAuthority('STUDENT')" class="profile-section">
 
-        <hr class="profile-divider">
         <h3>Student Personal</h3>
 
         <div class="form-field">
@@ -71,6 +72,7 @@
             <input type="text" th:field="*{homeAddress}" required>
         </div>
 
+        <hr class="profile-divider">
         <h3>Academic</h3>
 
         <div class="grid-2">
@@ -122,13 +124,14 @@
                 </select>
             </div>
 
-            <div class="form-field">
+            <div class="form-field" required>
                 <label>Room</label>
                 <input type="text" th:field="*{hostelRoom}" placeholder="Enter 0 if living outside." required>
             </div>
 
         </div>
 
+        <hr class="profile-divider">
         <h3>Faculties</h3>
         <div class="grid-2">
             <div class="form-field">
@@ -171,7 +174,6 @@
 
     <div sec:authorize="hasAuthority('CT')" class="profile-section">
 
-        <hr class="profile-divider">
         <h3>Class Teacher</h3>
 
         <div class="grid-2">
@@ -207,7 +209,6 @@
 
     <div sec:authorize="hasAuthority('HOD')" class="profile-section">
 
-        <hr class="profile-divider">
         <h3>HOD</h3>
 
         <div class="grid-2">
@@ -235,7 +236,6 @@
 
     <div sec:authorize="hasAuthority('WARDEN')" class="profile-section">
 
-        <hr class="profile-divider">
         <h3>Warden</h3>
 
         <div class="form-field">

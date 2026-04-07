@@ -5,22 +5,30 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 // # Applications
-// POST   /application          // New application (or modify an existing for student only)
-// GET    /application          // Application page
-// GET    /application/all      // List of applications the user permitted to see
-// GET    /application/{id}     // Single application details of other user or self
-// PATCH  /application/{id}     // Update application of other user like status
-// DELETE /application/{id}     // optional, maybe only admin can...
+// POST   /application/                 // New application (or modify an existing for student only)
+// GET    /application                  // Application creation page
+// GET    /application/{id}             // Single application details
+// GET    /application/all              // List of applications the user permitted to see
+// GET    /application/{username}       // List of applications of a student
+// PATCH  /application/{id}             // Update application status
+// DELETE /application/{id}             // optional, maybe only admin can...
 
 @Controller
 @RequestMapping("/application")
 public class ApplicationController {
+
+    @PreAuthorize("hasAuthority('STUDENT')")
+    @GetMapping
+    public String application(Model model) {
+        return "redirect:/under-construction";
+    }
 
     @GetMapping("/all")
     public String getAllApplications(Model model){
@@ -43,6 +51,6 @@ public class ApplicationController {
 
         model.addAttribute("applications", applications);
 
-        return "pages/applications";
+        return "pages/applicationList";
     }
 }

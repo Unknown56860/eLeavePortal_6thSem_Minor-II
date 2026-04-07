@@ -1,12 +1,19 @@
 package com.example.eLeavePortal.service;
 
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 
 import com.example.eLeavePortal.entity.*;
 import com.example.eLeavePortal.repository.*;
-
+import com.example.eLeavePortal.security.CustomUserDetails;
 import com.example.eLeavePortal.dto.ProfileDto;
 import com.example.eLeavePortal.enums.ProfileStatusEnums;
 import com.example.eLeavePortal.enums.RolesEnum;
@@ -33,11 +40,6 @@ public class ProfileService {
     private final SectionRepository sectionRepository;
     private final HostelRepository hostelRepository;
 
-    public void updateStatus(String username, ProfileStatusEnums status) {
-        UserEntity user = userRepository.findByUserName(username).orElseThrow();
-        user.setProfileStatus(status);
-    }
-
     public ProfileDto getProfile(String username) {
 
         UserEntity user = userRepository.findByUserName(username).orElseThrow();
@@ -46,6 +48,7 @@ public class ProfileService {
 
         dto.setUsername(username);
         dto.setRole(user.getRole());
+        dto.setStatus(user.getProfileStatus());
 
         contactRepository.findByUser(user).ifPresent(c -> {
             dto.setName(c.getName());
@@ -114,6 +117,22 @@ public class ProfileService {
             });
         }
 
+        if (user.getRole() == RolesEnum.HOSTEL_CONTROLLER) {
+            hcRepository.findByUser(user).ifPresent(hc -> {
+
+                dto.setHostelControllerId(hc.getHcId());
+
+                List<WardenEntity> wardens =
+                        wardenRepository.findByHostelController(hc);
+
+                List<Long> hostelIds = wardens.stream()
+                        .map(w -> w.getHostel().getHostelId())
+                        .toList();
+
+                dto.setHostelIds(hostelIds); // add List<Long> in DTO
+            });
+        }
+
         return dto;
     }
 
@@ -134,6 +153,69 @@ public class ProfileService {
         }
 
         user.setProfileStatus(ProfileStatusEnums.PENDING);
+    }
+
+    public void updateProfileStatus(String username, ProfileStatusEnums status) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        CustomUserDetails actingUser = (CustomUserDetails) auth.getPrincipal();
+
+        UserEntity targetUser = userRepository.findByUserName(username).orElseThrow();
+
+        RolesEnum actorRole = actingUser.getRole();
+        RolesEnum targetRole = targetUser.getRole();
+
+        boolean isSelf = actingUser.getUsername().equals(username);
+
+        boolean allowed = switch (actorRole) {
+            case ADMIN -> 
+                !isSelf && targetRole != RolesEnum.ADMIN;
+            case CT, HOD, WARDEN, HOSTEL_CONTROLLER ->
+                !isSelf && targetRole != RolesEnum.STUDENT && targetRole != RolesEnum.ADMIN;
+            default -> false;
+        };
+
+        if(!allowed) {
+            throw new AccessDeniedException("Not allowed to modify this profile!");
+        }
+
+        targetUser.setProfileStatus(status);
+
+    }
+
+    public List<ProfileDto> getAllFaculty(String username){
+
+        List<UserEntity> users =
+            userRepository.findByRoleIn(List.of(
+                RolesEnum.CT,
+                RolesEnum.HOD,
+                RolesEnum.WARDEN,
+                RolesEnum.HOSTEL_CONTROLLER
+            ));
+
+        return users.stream()
+                .map(u -> getProfile(u.getUserName()))
+                .toList();
+    }
+
+    public List<ProfileDto> getAllStudents(String username){
+
+        UserEntity current = userRepository
+                .findByUserName(username)
+                .orElseThrow();
+
+        if(current.getRole() == RolesEnum.STUDENT){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        List<UserEntity> students =
+                userRepository.findByRole(RolesEnum.STUDENT);
+
+        return students.stream()
+                .map(u -> getProfile(u.getUserName()))
+                .filter(dto -> canViewStudent(current, dto))
+                .toList();
     }
 
     private void saveContact(UserEntity user, ProfileDto dto) {
@@ -302,5 +384,43 @@ public class ProfileService {
         hc.setUser(user);
 
         hcRepository.save(hc);
+    }
+
+    private boolean canViewStudent(UserEntity viewer, ProfileDto student){
+
+        switch (viewer.getRole()) {
+
+            case ADMIN:
+                return true;
+
+            case CT:
+                var ct = ctRepository.findByUser(viewer).orElseThrow();
+                return Objects.equals(student.getBatchId(), ct.getBatch().getBatchId()) &&
+                    Objects.equals(student.getBranchId(), ct.getBranch().getBranchId()) &&
+                    Objects.equals(student.getSectionId(), ct.getSection().getId());
+
+            case HOD:
+                var hod = hodRepository.findByUser(viewer).orElseThrow();
+                return Objects.equals(student.getBatchId(), hod.getBatch().getBatchId()) &&
+                    Objects.equals(student.getBranchId(), hod.getBranch().getBranchId());
+
+            case WARDEN:
+                var w = wardenRepository.findByUser(viewer).orElseThrow();
+                return Objects.equals(student.getHostelId(), w.getHostel().getHostelId());
+
+            case HOSTEL_CONTROLLER:
+                var hc = hcRepository.findByUser(viewer).orElseThrow();
+
+                List<Long> hostelIds =
+                        wardenRepository.findByHostelController(hc)
+                        .stream()
+                        .map(x -> x.getHostel().getHostelId())
+                        .toList();
+
+                return hostelIds.contains(student.getHostelId());
+
+            default:
+                return false;
+        }
     }
 }
