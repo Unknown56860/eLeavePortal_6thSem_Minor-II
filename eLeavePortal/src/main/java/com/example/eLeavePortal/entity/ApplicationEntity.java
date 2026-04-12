@@ -33,10 +33,10 @@ public class ApplicationEntity {
     @Column(nullable = false)
     private LocalDate endDate;
 
-    @Column(nullable = false, length = 500)
+    @Column(nullable = false, length = 100)
     private String reason;
 
-    @Column(length = 1500)
+    @Column(length = 1000)
     private String explanation;
 
     @Column(length = 1000)

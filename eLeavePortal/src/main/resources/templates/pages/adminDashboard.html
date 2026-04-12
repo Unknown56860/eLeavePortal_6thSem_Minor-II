@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en"
+      th:replace="~{layout/base :: layout('adminDashboard', 'Site Manaagement | eLeave Portal', ~{::content}, ~{::pageStyle})}">
+
+<th:block th:fragment="pageStyle">
+    <link rel="stylesheet" th:href="@{/css/pages/adminDashboard.css}">
+</th:block>
+<th:block th:fragment="content">
+
+    <section class="section">
+        <div class="container">
+
+            <h2 class="text-center">Dashboard</h2>
+
+            <!-- KPI CARDS -->
+            <div class="grid-3 dashboard-cards">
+                <div class="card">
+                    <h4>Students</h4>
+                    <p class="card-value" th:text="${dashboard.totalStudents}"></p>
+                </div>
+                <div class="card">
+                    <h4>CT</h4>
+                    <p class="card-value" th:text="${dashboard.totalCT}"></p>
+                </div>
+                <div class="card">
+                    <h4>HOD</h4>
+                    <p class="card-value" th:text="${dashboard.totalHOD}"></p>
+                </div>
+                <div class="card">
+                    <h4>Warden</h4>
+                    <p class="card-value" th:text="${dashboard.totalWarden}"></p>
+                </div>
+                <div class="card">
+                    <h4>HC</h4>
+                    <p class="card-value" th:text="${dashboard.totalHC}"></p>
+                </div>
+                <div class="card">
+                    <h4>Applications</h4>
+                    <p class="card-value" th:text="${dashboard.totalApplications}"></p>
+                </div>
+            </div>
+
+            <!-- TREND TABLE -->
+            <div class="dashboard-block">
+                <h3>Application Trend</h3>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Count</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="t : ${trend}">
+                        <td th:text="${t.date}"></td>
+                        <td th:text="${t.count}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- MASTER DATA -->
+            <div class="grid-2 dashboard-block">
+
+                <!-- BATCH -->
+                <div class="card">
+                    <h3>Batch</h3>
+                    <form method="post" action="/admin/batch" class="form-inline">
+                        <input name="name" placeholder="Batch name"/>
+                        <button class="btn btn-primary">Add</button>
+                    </form>
+                    <ul class="list">
+                        <li th:each="b : ${batches}">
+                            <span th:text="${b.batch}"></span>
+                            <form method="post" action="/admin/batch/delete">
+                                <input type="hidden" name="id" th:value="${b.batchId}"/>
+                                <button class="btn btn-danger">Remove</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- BRANCH -->
+                <div class="card">
+                    <h3>Branch</h3>
+                    <form method="post" action="/admin/branch" class="form-inline">
+                        <input name="name" placeholder="Branch name"/>
+                        <button class="btn btn-primary">Add</button>
+                    </form>
+                    <ul class="list">
+                        <li th:each="b : ${branches}">
+                            <span th:text="${b.branch}"></span>
+                            <form method="post" action="/admin/branch/delete">
+                                <input type="hidden" name="id" th:value="${b.branchId}"/>
+                                <button class="btn btn-danger">Remove</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- SECTION -->
+                <div class="card">
+                    <h3>Section</h3>
+                    <form method="post" action="/admin/section" class="form-inline">
+                        <input name="name" placeholder="Section name"/>
+                        <button class="btn btn-primary">Add</button>
+                    </form>
+                    <ul class="list">
+                        <li th:each="s : ${sections}">
+                            <span th:text="${s.section}"></span>
+                            <form method="post" action="/admin/section/delete">
+                                <input type="hidden" name="id" th:value="${s.id}"/>
+                                <button class="btn btn-danger">Remove</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- HOSTEL -->
+                <div class="card">
+                    <h3>Hostel</h3>
+                    <form method="post" action="/admin/hostel" class="form-inline">
+                        <input name="name" placeholder="Hostel name"/>
+                        <button class="btn btn-primary">Add</button>
+                    </form>
+                    <ul class="list">
+                        <li th:each="h : ${hostels}">
+                            <span th:text="${h.name}"></span>
+                            <form method="post" action="/admin/hostel/delete">
+                                <input type="hidden" name="id" th:value="${h.hostelId}"/>
+                                <button class="btn btn-danger">Remove</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- ADMINS -->
+            <div class="dashboard-block">
+                <h3>Admins</h3>
+
+                <form method="post" action="/admin/admin/create" class="form-inline">
+                    <input name="userName" placeholder="username"/>
+                    <input name="password" type="password" placeholder="password"/>
+                    <button class="btn btn-secondary">Create</button>
+                </form>
+
+                <ul class="list">
+                    <li th:each="a : ${admins}">
+                        <span th:text="${a.userName}"></span>
+                        <form method="post" action="/admin/admin/delete">
+                            <input type="hidden" name="id" th:value="${a.id}"/>
+                            <button class="btn btn-danger">Remove</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+</th:block>
+</html>

@@ -1,3 +1,147 @@
 <!-- Show the detailed view of an application. -->
+<!DOCTYPE html>
+<html lang="en"
+      th:replace="~{layout/base :: layout('applicationDetail', 'Application Details | eLeave Portal', ~{::content}, ~{::pageStyle})}">
 
+<th:block th:fragment="pageStyle">
+    <link rel="stylesheet" th:href="@{/css/pages/application.css}">
+</th:block>
 
+<th:block th:fragment="content">
+
+<div class="container section application-page">
+
+    <h2 class="application-title">Application Details</h2>
+
+    <!-- Student info -->
+    <div class="application-title">
+        <img th:src="@{${applicationDto.studentPfp}}" class="profile-avatar">
+        <a th:href="@{'/profile/' + ${applicationDto.username}}" class="item-card">
+            <h4 th:text="${applicationDto.studentName} + ' · ' + ${applicationDto.studentRoll}">Name · Roll</h4>
+        </a>
+    </div>
+
+    <hr class="profile-divider">
+    <!-- Application info -->
+    <div class="application-view">
+
+        <div class="grid-2">
+            <div class="form-group">
+                <label>Start Date</label>
+                <p th:text="${applicationDto.startDate}"></p>
+            </div>
+            <div class="form-group">
+                <label>End Date</label>
+                <p th:text="${applicationDto.endDate}"></p>
+            </div>
+        </div>
+
+        <hr class="profile-divider">
+        <div class="form-group">
+            <label>Reason</label>
+            <p th:text="${applicationDto.reason}"></p>
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <p th:text="${applicationDto.explaination}"></p>
+        </div>
+
+        <div class="form-group" th:if="${applicationDto.attachmentUrl != null}">
+            <label>Attachment</label>
+            <a th:href="${applicationDto.attachmentUrl}" target="_blank">View attachment</a>
+        </div>
+
+        <hr class="profile-divider">
+        <div class="grid-2">
+            <div class="form-group">
+                <label>Status</label>
+                <span class="status-badge" th:text="${applicationDto.currentStatus}">N/A</span>
+            </div>
+            <div class="form-group">
+                <label>Last updated by</label>
+                <span class="status-badge" th:if="${applicationDto.updatedBy != null}"
+                    th:text="${applicationDto.updatedBy.getUserContact.getName()}">N/A</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ================= STUDENT ACTIONS ================= -->
+    <div class="btn-group application-actions" sec:authorize="hasAuthority('STUDENT')">
+
+        <!-- EDIT + DELETE when DRAFT -->
+        <th:block th:if="${applicationDto.currentStatus.name() == 'DRAFTED'}">
+            <a th:href="@{'/application/' + ${applicationDto.id}}"class="btn btn-primary">Edit</a>
+            <form th:action="@{'/application/' + ${applicationDto.id}}" method="post" th:method="patch">
+                <button type="submit" name="status" value="APPLIED" class="btn btn-success">Apply</button>
+            </form>
+            <form th:action="@{'/application/' + ${applicationDto.id}}" method="post" th:method="delete">
+                <button class="btn btn-danger">Delete</button>
+            </form>
+        </th:block>
+
+        <!-- CANCEL when APPLIED -->
+        <th:block th:if="${applicationDto.currentStatus.name() == 'APPLIED'}">
+            <form th:action="@{'/application/' + ${applicationDto.id}}" method="post" th:method="patch">
+                <input type="hidden" name="status" value="CANCELLED">
+                <button class="btn btn-danger">Cancel Application</button>
+            </form>
+        </th:block>
+    </div>
+
+    <!-- ================= APPROVER (CT/HOD/WARDEN/HC) ================= -->
+    <div class="approval-box" sec:authorize="hasAnyAuthority('CT','HOD','WARDEN','HOSTEL_CONTROLLER')">
+        <form th:action="@{'/application/' + ${applicationDto.id}}" method="post" th:method="patch">
+            <div class="form-group">
+                <label>Remark (optional)</label>
+                <textarea name="remark" rows="3"></textarea>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-success" type="submit" name="status" value="CT_APPROVED" 
+                    sec:authorize="hasAuthority('CT')">Approve</button>
+                <button class="btn btn-success" type="submit" name="status" value="HOD_APPROVED" 
+                    sec:authorize="hasAuthority('HOD')">Approve</button>
+                <button class="btn btn-success" type="submit" name="status" value="WARDEN_APPROVED" 
+                    sec:authorize="hasAuthority('WARDEN')">Approve</button>
+                <button class="btn btn-success" type="submit" name="status" value="HC_APPROVED" 
+                    sec:authorize="hasAuthority('HOSTEL_CONTROLLER')">Approve</button>
+
+                <button type="submit" name="status" value="REJECTED" class="btn btn-danger">Reject</button>
+                <button type="submit" name="status" value="ACTION_REQUIRED" class="btn btn-warning">Action Required</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- ================= ADMIN ================= -->
+    <div class="approval-box" sec:authorize="hasAuthority('ADMIN')">
+        <form th:action="@{'/application/' + ${applicationDto.id}}" method="post" th:method="patch">
+            <div class="form-group">
+                <label>Remark</label>
+                <textarea name="remark" rows="3"></textarea>
+            </div>
+            <div class="btn-group">
+                <button type="submit" name="status" value="LEAVE_GRANTED" class="btn btn-success">Grant Leave</button>
+                <button type="submit" name="status" value="LEAVE_REJECTED" class="btn btn-danger">Reject Leave</button>
+            </div>
+        </form>
+    </div>
+
+    <hr class="profile-divider">
+    <!-- ================= APPROVAL HISTORY ================= -->
+    <div class="approval-history">
+        <h3>Approval History</h3>
+        <div th:each="rec : ${approvalHistory}" class="approval-item">
+            <div class="approval-header">
+                <strong th:text="${rec.role}">CT</strong>
+                <span th:text="${rec.approvalStatus}">APPROVED</span>
+            </div>
+            <p th:if="${rec.remark != null}" th:text="${rec.remark}"></p>
+            <small th:text="${rec.approvalDate}"></small>
+        </div>
+    </div>
+
+</div>
+
+</th:block>
+</html>

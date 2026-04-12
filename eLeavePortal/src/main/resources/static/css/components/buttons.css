@@ -75,6 +75,11 @@
     background: var(--text-muted);
 }
 
+.btn-ai-enhance {
+    padding: 0.35rem 0.7rem;
+    font-size: var(--font-size-sm);
+}
+
 /* group buttons nicely */
 .btn-group {
     display: flex;

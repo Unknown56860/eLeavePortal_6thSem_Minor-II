@@ -21,13 +21,13 @@
     <div class="profile-identity">
         <h2 th:text="${profile.username}">Username</h2>
         <h3 th:text="${profile.role.name()}">Role</h3>
-        <p class="profile-subtitle">Profile Details</p>
+        <p th:text="'Profile Status: ' + ${profile.status.name()}" class="profile-subtitle"></p>
 
         <!-- self -->
         <div sec:authorize="isAuthenticated()">
             <div th:if="${#authentication.name == profile.username}">
                 <a href="/profile" class="btn btn-primary">Update Profile</a>
-                <a href="#" class="btn btn-secondary">Change Password</a>
+                <a href="/under-construction" class="btn btn-secondary">Change Password</a>
             </div>
         </div>
 
@@ -48,8 +48,13 @@
                         <button name="status" value="INCOMPLETE" class="btn btn-muted">Incomplete</button>
                     </div>
                 </form>
+                <hr class="profile-divider">
+                <a class="btn btn-primary" th:if="${profile.role.name() == 'STUDENT'}"
+                    th:href="@{'/application/student/' + ${profile.username}}">Applications</a>
             </div>
         </div>
+
+
     </div>
 
 </div>
@@ -59,7 +64,7 @@
 <!-- ================= CONTACT ================= -->
 
 <div class="profile-section">
-    <h3>Contact Info</h3>
+    <h3>User Info</h3>
 
     <div class="grid-2">
 
@@ -79,7 +84,7 @@
         </div>
 
         <div class="form-field">
-            <label>Personal Mail</label>
+            <label>Email</label>
             <p th:text="${profile.email}"></p>
         </div>
 

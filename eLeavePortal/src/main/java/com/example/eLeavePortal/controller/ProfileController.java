@@ -27,7 +27,6 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/profile")
 @RequiredArgsConstructor
 public class ProfileController {
-
     private final ProfileService profileService;
 
     private final BatchRepository batchRepository;
@@ -49,7 +48,7 @@ public class ProfileController {
     @PostMapping
     public String save(@ModelAttribute("profile") ProfileDto dto, Authentication auth) {
         profileService.saveProfile(auth.getName(), dto);
-        return "redirect:/" + auth.getName();
+        return "redirect:/profile/" + auth.getName();
     }
 
     @GetMapping("/{username}")
@@ -72,8 +71,7 @@ public class ProfileController {
 
     @GetMapping("/all/staff")
     public String allFaculty(Authentication auth, Model model) {
-        model.addAttribute("profiles",
-                profileService.getAllFaculty(auth.getName()));
+        model.addAttribute("profiles", profileService.getAllFaculty(auth.getName()));
         addChargesLookup(model);
         return "pages/profileList";
     }
@@ -81,16 +79,13 @@ public class ProfileController {
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CT', 'HOD', 'WARDEN', 'HOSTEL_CONTROLLER')")
     @GetMapping("/all/students")
     public String allStudents(Authentication auth, Model model) {
-        model.addAttribute("profiles",
-                profileService.getAllStudents(auth.getName()));
+        model.addAttribute("profiles", profileService.getAllStudents(auth.getName()));
         addChargesLookup(model);
         return "pages/profileList";
     }
 
-
     private void addProfileAttributes(Model model, String username) {
-        model.addAttribute("profile", 
-                profileService.getProfile(username));
+        model.addAttribute("profile", profileService.getProfile(username));
         addChargesLookup(model);
         addFacultiesLookup(model);
     }

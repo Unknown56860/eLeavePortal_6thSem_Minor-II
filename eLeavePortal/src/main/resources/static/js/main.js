@@ -1,4 +1,5 @@
 import { initLogin, initRegister } from "./core/auth.js";
+import { initEnhanceButton } from "./pages/application.js";
 import { initHomeContact } from "./pages/home.js";
 
 const page = document.body.dataset.page;
@@ -13,8 +14,8 @@ switch (page){
     case "register":
         initRegister();
         break;
-    case "dashboard":
-        console.log("Dashboard func. to be added...");
+    case "applicationUpdate":
+        initEnhanceButton();
         break;
 
     default:

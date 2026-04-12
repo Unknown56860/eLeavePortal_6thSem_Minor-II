@@ -46,10 +46,7 @@ public class SecurityConfig {
                 .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
                 .requestMatchers("/", "/contact", "/error").permitAll()
                 .requestMatchers("/login", "/register", "/api/auth/register").permitAll()
-                // api's modified and these apis might never be implemented in future.
-                // .requestMatchers("/admin/**").hasAuthority("ADMIN")
-                // .requestMatchers("/staff/**").hasAnyAuthority("CT", "HOD", "WARDEN", "HOSTEL_CONTROLLER", "ADMIN")
-                // .requestMatchers("/student/**").hasAnyAuthority("STUDENT", "ADMIN")
+                .requestMatchers("/admin/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
             )
 

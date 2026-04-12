@@ -1,7 +1,7 @@
 <!-- Show the list of applications -->
 <!DOCTYPE html>
 <html lang="en"
-      th:replace="~{layout/base :: layout('applications', 'eLeave Portal | Applications', ~{::content}, ~{::pageStyle})}">
+      th:replace="~{layout/base :: layout('applicationList', 'Applications List | eLeave Portal', ~{::content}, ~{::pageStyle})}">
 
 <th:block th:fragment="pageStyle">
     <link rel="stylesheet" th:href="@{/css/pages/listView.css}">
@@ -9,19 +9,23 @@
 
 <th:block th:fragment="content">
 
-    <div th:each="applicationInfo: ${applications}" class="item-card">
-        <img th:src="@{${applicationInfo.studentProfileImg}}" alt="pfp" class="profile-avatar">
+    <a th:each="applicationInfo : ${applications}" th:href="@{'/application/view/' + ${applicationInfo.id}}" class="item-card">
+
+        <img th:src="${applicationInfo.studentPfp != null ? applicationInfo.studentPfp : '/images/icons/profile-circle.svg'}" 
+            class="profile-avatar">
+
         <div class="list-content">
             <div class="content-left"> 
-                <h4 th:text="${applicationInfo.studentName + ' · ' + applicationInfo.studentRoll}">Roll·Name</h4>
-                <p th:text="'Sub: ' + ${applicationInfo.leaveReason}">Sub: Leave request</p>
+                <h4 th:text="${applicationInfo.studentName + ' · ' + applicationInfo.studentRoll}">Name·Roll</h4>
+                <p th:text="'Reason: ' + ${applicationInfo.reason}">Reason: Summer holidays!</p>
             </div>
+
             <div class="content-right">
-                <h4 th:text="${applicationInfo.status}">Drafted</h4>
+                <h4 th:text="${applicationInfo.currentStatus}">Drafted</h4>
                 <p th:text="${applicationInfo.startDate + ' - ' + applicationInfo.endDate}">01/01/2000 - 31/12/2000</p>
             </div>
         </div>
-    </div>
+    </a>
 
 </th:block>
 </html>

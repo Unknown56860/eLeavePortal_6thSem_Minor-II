@@ -1,0 +1,77 @@
+/* page layout */
+.application-page {
+    max-width: 720px;
+}
+
+/* title */
+.application-title {
+    margin-bottom: var(--space-md);
+}
+
+/* form container */
+.application-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+/* form groups */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    /* gap: var(--space-xs); */
+}
+
+/* header with action button */
+.form-group-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+}
+
+/* labels */
+.form-group label {
+    font-size: var(--font-size-sm);
+    color: var(--text-light);
+}
+
+/* inputs */
+.form-group input,
+.form-group textarea {
+    padding: 0.55rem 0.65rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-muted);
+    font-size: var(--font-size-base);
+    background: var(--bg-body);
+    color: var(--text-dark);
+    transition: border var(--transition), box-shadow var(--transition);
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+/* focus state */
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--secondary);
+}
+
+/* file link */
+.file-existing {
+    margin-top: var(--space-xs);
+    font-size: var(--font-size-sm);
+}
+
+/* actions */
+.application-actions {
+    margin-top: var(--space-sm);
+}
+
+/* divider spacing */
+.profile-divider {
+    margin: var(--space-md) 0;
+}

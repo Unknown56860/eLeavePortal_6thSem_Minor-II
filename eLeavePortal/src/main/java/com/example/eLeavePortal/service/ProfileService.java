@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,7 +19,6 @@ import com.example.eLeavePortal.dto.ProfileDto;
 import com.example.eLeavePortal.enums.ProfileStatusEnums;
 import com.example.eLeavePortal.enums.RolesEnum;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -152,7 +152,10 @@ public class ProfileService {
             default -> {}
         }
 
-        user.setProfileStatus(ProfileStatusEnums.PENDING);
+        if(user.getRole() != RolesEnum.ADMIN)
+            user.setProfileStatus(ProfileStatusEnums.PENDING);
+        else
+            user.setProfileStatus(ProfileStatusEnums.ACTIVE);
     }
 
     public void updateProfileStatus(String username, ProfileStatusEnums status) {
@@ -172,7 +175,7 @@ public class ProfileService {
             case ADMIN -> 
                 !isSelf && targetRole != RolesEnum.ADMIN;
             case CT, HOD, WARDEN, HOSTEL_CONTROLLER ->
-                !isSelf && targetRole != RolesEnum.STUDENT && targetRole != RolesEnum.ADMIN;
+                !isSelf && targetRole == RolesEnum.STUDENT && targetRole != RolesEnum.ADMIN;
             default -> false;
         };
 

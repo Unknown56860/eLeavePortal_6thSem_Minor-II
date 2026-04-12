@@ -3,8 +3,6 @@ package com.example.eLeavePortal.entity;
 import lombok.*;
 import jakarta.persistence.*;
 
-import org.hibernate.annotations.ColumnDefault;
-
 import com.example.eLeavePortal.enums.ProfileStatusEnums;
 import com.example.eLeavePortal.enums.RolesEnum;
 

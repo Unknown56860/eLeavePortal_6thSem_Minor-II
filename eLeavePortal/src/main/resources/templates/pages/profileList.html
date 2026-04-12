@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-      th:replace="~{layout/base :: layout('profileList', 'eLeave Portal | PProfiles', ~{::content}, ~{::pageStyle})}">
+      th:replace="~{layout/base :: layout('profileList', 'Profiles | eLeave Portal', ~{::content}, ~{::pageStyle})}">
 
 <th:block th:fragment="pageStyle">
     <link rel="stylesheet" th:href="@{/css/pages/listView.css}">
@@ -8,44 +8,59 @@
 
 <th:block th:fragment="content">
 
-    <div th:each="profile: ${profiles}" class="item-card">
+    <a th:each="profile: ${profiles}" th:href="@{'/profile/' + ${profile.username}}" class="item-card">
         <img th:src="${profile.pfpUrl != null ? profile.pfpUrl : '/images/icons/profile-circle.svg'}" class="profile-avatar">
         <div class="list-content">
             <div class="content-left"> 
-                <h4 th:text="${profile.name !=null ? profile.name : profile.username}">UserX</h4>
+                <h4>
+                    <span th:text="${profile.name !=null ? profile.name : profile.username} + ' · '"></span>
+                    <span th:if="${profile.role.name() == 'STUDENT'}" th:text="${profile.rollNumber}"></span>
+                    <span th:if="${profile.role.name() != 'STUDENT'}" th:text="${profile.role.name()}"></span>
+                </h4>
+
                 <div th:if="${profile.role.name() == 'STUDENT'}">
                     <p>
-                        <span th:each="b : ${branches}" th:if="${b.branchId == profile.branchId}" th:text="${b.branch}">-</span>
-                        <span th:each="s : ${sections}" th:if="${s.id == profile.sectionId}" th:text="${s.section}">,</span>
-                        <span th:each="b : ${batches}" th:if="${b.batchId == profile.batchId}" th:text="${b.batch}">,</span>
+                        <span th:each="b : ${branches}" th:if="${b.branchId == profile.branchId}" th:text="${b.branch}"></span>
+                        -
+                        <span th:each="s : ${sections}" th:if="${s.id == profile.sectionId}" th:text="${s.section}"></span>
+                        ,
+                        <span th:each="b : ${batches}" th:if="${b.batchId == profile.batchId}" th:text="${b.batch}"></span>
+                        ,
                         <span th:each="h : ${hostels}" th:if="${h.hostelId == profile.hostelId}" th:text="${h.name}"></span>
                     </p>
                 </div>
+
                 <div th:if="${profile.role.name() == 'CT'}">
                     <p>
-                        <span th:each="b : ${branches}" th:if="${b.branchId == profile.branchId}" th:text="${b.branch}">-</span>
-                        <span th:each="s : ${sections}" th:if="${s.id == profile.sectionId}" th:text="${s.section}">,</span>
+                        <span th:each="b : ${branches}" th:if="${b.branchId == profile.branchId}" th:text="${b.branch}"></span>
+                        -
+                        <span th:each="s : ${sections}" th:if="${s.id == profile.sectionId}" th:text="${s.section}"></span>
+                        ,
                         <span th:each="b : ${batches}" th:if="${b.batchId == profile.batchId}" th:text="${b.batch}"></span>
                     </p>
                 </div>
+
                 <div th:if="${profile.role.name() == 'HOD'}">
                     <p>
-                        <span th:each="b : ${branches}" th:if="${b.branchId == profile.branchId}" th:text="${b.branch}">,</span>
+                        <span th:each="b : ${branches}" th:if="${b.branchId == profile.branchId}" th:text="${b.branch}"></span>
+                        ,
                         <span th:each="b : ${batches}" th:if="${b.batchId == profile.batchId}" th:text="${b.batch}"></span>
                     </p>
                 </div>
+
                 <div th:if="${profile.role.name() == 'WARDEN'}">
                     <p>
                         <span th:each="h : ${hostels}" th:if="${h.hostelId == profile.hostelId}" th:text="${h.name}"></span>
                     </p>
                 </div>
             </div>
+
             <div class="content-right">
                 <p th:text="'Mob: ' + ${profile.mobile} + ', Whatsapp: ' + ${profile.whatsapp}"></p>
                 <p th:text="'Email: ' + ${profile.email}"></p>
             </div>
         </div>
-    </div>
+    </a>
 
 </th:block>
 </html>

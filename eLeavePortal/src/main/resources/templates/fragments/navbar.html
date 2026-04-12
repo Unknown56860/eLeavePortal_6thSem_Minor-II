@@ -21,20 +21,20 @@
             <span sec:authorize="isAuthenticated()">
 
                 <span sec:authorize="hasAuthority('STUDENT')">
-                    <a href="#">New Application</a>
-                    <a href="#">My Applications</a>
+                    <a href="/application">New Application</a>
+                    <a href="/application/all">My Applications</a>
                     <a href="/profile/all/staff">Faculties</a>
                 </span>
 
                 <span sec:authorize="hasAnyAuthority('CT', 'HOD', 'WARDEN', 'HOSTEL_CONTROLLER')">
-                    <a href="#">Applications</a>
+                    <a href="/application/all">Applications</a>
                     <a href="/profile/all/students">Students</a>
                     <a href="/profile/all/staff">Staff</a>
                 </span>
 
                 <span sec:authorize="hasAuthority('ADMIN')">
-                    <a href="#">Site Status</a>
-                    <a href="#">Applications</a>
+                    <a href="/admin/site">Admin Dashboard</a>
+                    <a href="/application/all">Applications</a>
                     <a href="/profile/all/students">Students</a>
                     <a href="/profile/all/staff">Staff</a>
                 </span>
@@ -49,13 +49,12 @@
                         <a id="logoutBtn">Logout</a>
                         <!-- <a href="#">Manage Admins</a> -->
                     </div>
-                </div>
-                
+                </div>  
             </span>
         </nav>
     </div>
 
     <script th:src="@{/js/pages/navbar.js}" type="module"></script>
-    
+
 </header>
 

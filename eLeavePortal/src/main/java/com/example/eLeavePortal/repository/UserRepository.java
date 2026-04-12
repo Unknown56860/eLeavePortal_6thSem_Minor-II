@@ -16,6 +16,8 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     
     boolean existsByUserName(String userName);
 
+    long countByRole(RolesEnum role);
+
     List<UserEntity> findByRole(RolesEnum role);
     List<UserEntity> findByRoleIn(List<RolesEnum> roles);
 }

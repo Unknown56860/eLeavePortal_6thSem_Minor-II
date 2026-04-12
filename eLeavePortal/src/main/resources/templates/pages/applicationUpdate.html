@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en"
+      th:replace="~{layout/base :: layout('applicationUpdate', 'Update Application | eLeave Portal', ~{::content}, ~{::pageStyle})}">
+
+<th:block th:fragment="pageStyle">
+    <link rel="stylesheet" th:href="@{/css/pages/application.css}">
+</th:block>
+
+<th:block th:fragment="content">
+
+<div class="container section application-page">
+    <h2 th:text="${applicationDto.id != null} ? 'Edit Application' : 'New Application'" class="application-title"></h2>
+
+    <form th:action="@{/application}" th:object="${applicationDto}" method="post" enctype="multipart/form-data" 
+        class="application-form">
+
+        <input type="hidden" th:field="*{id}" />
+        <!-- Date range -->
+        <div class="grid-2">
+            <div class="form-group">
+                <label>Start Date</label>
+                <input type="date" th:field="*{startDate}" required>
+            </div>
+            <div class="form-group">
+                <label>End Date</label>
+                <input type="date" th:field="*{endDate}" required>
+            </div>
+        </div>
+        <!-- Reason -->
+        <div class="form-group">
+            <label>Reason</label>
+            <input type="text" th:field="*{reason}" maxlength="100" 
+                placeholder="E.g Medical / Personal / Family function / ..." required>
+        </div>
+        <!-- Explanation -->
+        <div class="form-group">
+            <div class="form-group-header">
+                <label>Description</label>
+                <button type="button" class="btn btn-muted btn-ai-enhance">Enhance with AI</button>
+            </div>
+            <textarea th:field="*{explanation}" rows="4" maxlength="1000" 
+                    placeholder="Provide detailed explanation..." required></textarea>
+        </div>
+
+        <!-- Attachment -->
+        <div class="form-group">
+            <label>Supporting Document</label>
+            <input type="file" th:field="*{attachmentFile}" accept=".pdf,.jpg,.jpeg,.png,.mp3,.mp4,.zip">
+            <div th:if="${applicationDto.attachmentFile != null}" class="file-existing">
+                <a th:href="${applicationDto.attachmentFile}" target="_blank">View existing file</a>
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="btn-group application-actions">
+            <button type="submit" name="action" value="draft" class="btn btn-secondary">Save Draft</button>
+            <button type="submit" name="action" value="apply" class="btn btn-primary">Apply</button>
+            <a class="btn btn-muted" th:href="@{${applicationDto.id != null} ? 
+                    '/application/view/' + applicationDto.id : '/application/all'}">
+                Cancel
+            </a>
+        </div>
+
+    </form>
+</div>
+
+</th:block>
+</html>

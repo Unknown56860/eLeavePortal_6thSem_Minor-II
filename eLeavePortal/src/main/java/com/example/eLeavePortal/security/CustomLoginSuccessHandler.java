@@ -17,10 +17,8 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
     
     @Override
-    public void onAuthenticationSuccess(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            Authentication authentication
+    public void onAuthenticationSuccess(HttpServletRequest request, 
+            HttpServletResponse response, Authentication authentication
                 ) throws IOException {
         
         CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
@@ -36,14 +34,14 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
         String redirectUrl;
 
         switch(role) {
-            case ADMIN: redirectUrl = "/"; break;
+            case ADMIN: redirectUrl = "/admin/site"; break;
 
             case STUDENT: redirectUrl = "/application/all"; break;
 
-            case CT: redirectUrl = "/under-construction"; break;
-            case HOD: redirectUrl = "/under-construction"; break;
-            case WARDEN: redirectUrl = "/under-construction"; break;
-            case HOSTEL_CONTROLLER: redirectUrl = "/under-construction"; break;
+            case CT: redirectUrl = "/application/all"; break;
+            case HOD: redirectUrl = "/application/all"; break;
+            case WARDEN: redirectUrl = "/application/all"; break;
+            case HOSTEL_CONTROLLER: redirectUrl = "/application/all"; break;
 
             default: redirectUrl = "/";
         }

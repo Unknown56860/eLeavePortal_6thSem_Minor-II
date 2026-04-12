@@ -13,4 +13,6 @@ import com.example.eLeavePortal.entity.UserEntity;
 public interface StudentRepository extends JpaRepository<StudentEntity, Long> {
     
     Optional<StudentEntity> findByUser(UserEntity user);
+    
+    Optional<StudentEntity> findByUser_UserName(String username);
 }
