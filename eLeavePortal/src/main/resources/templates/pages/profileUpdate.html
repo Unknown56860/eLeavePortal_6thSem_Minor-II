@@ -11,7 +11,7 @@
 <section class="section profile-page">
 <div class="container">
 
-<form th:action="@{/profile}" th:object="${profile}" method="post">
+<form th:action="@{/profile}" th:object="${profile}" method="post" enctype="multipart/form-data">
 
 <!-- ================= HEADER ================= -->
     <div class="profile-header grid-2">
@@ -56,6 +56,10 @@
                 <input type="text" th:field="*{email}" required>
             </div>
 
+            <div class="form-field">
+                <label>Profile Picture</label>
+                <input type="file" th:field="*{pfpImage}" accept=".jpeg,.jpg,.png,.svg">
+            </div>
         </div>
     </div>
 

@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/admin")
 @RequiredArgsConstructor
 public class AdminPageController {
-
     private final AdminService adminService;
 
     @GetMapping("/site")

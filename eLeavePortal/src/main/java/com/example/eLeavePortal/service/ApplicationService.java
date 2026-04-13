@@ -70,6 +70,7 @@ public class ApplicationService {
         }
 
         MultipartFile file = dto.getAttachmentFile();
+        
         if (file != null && !file.isEmpty()) {
             if (entity.getAttachmentUrl() != null) {
                 try {

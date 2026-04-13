@@ -1,5 +1,6 @@
 package com.example.eLeavePortal.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -39,6 +40,8 @@ public class ProfileService {
     private final BranchRepository branchRepository;
     private final SectionRepository sectionRepository;
     private final HostelRepository hostelRepository;
+
+    private final StorageService storageService;
 
     public ProfileDto getProfile(String username) {
 
@@ -223,9 +226,8 @@ public class ProfileService {
 
     private void saveContact(UserEntity user, ProfileDto dto) {
 
-        UserContactEntity contact =
-            Optional.ofNullable(user.getUserContact())
-                .orElseGet(UserContactEntity::new);
+        UserContactEntity contact = Optional.ofNullable(user.getUserContact())
+                                        .orElseGet(UserContactEntity::new);
 
         contact.setUser(user);
         user.setUserContact(contact);
@@ -234,7 +236,21 @@ public class ProfileService {
         if (dto.getMobile() != null) contact.setMobile(dto.getMobile());
         if (dto.getWhatsapp() != null) contact.setWhatsapp(dto.getWhatsapp());
         if (dto.getEmail() != null) contact.setEmail(dto.getEmail());
-        if (dto.getPfpUrl() != null) contact.setPfpUrl(dto.getPfpUrl());
+
+        System.out.println("BBB");
+        if (dto.getPfpImage() != null && !dto.getPfpImage().isEmpty()) {
+            if (contact.getPfpUrl() != null) {
+                try {
+                    storageService.delete(contact.getPfpUrl());
+                } catch (IOException ignored) {}
+            }
+        System.out.println("CCC");
+
+            String url = storageService.savePfp(dto.getPfpImage());
+            contact.setPfpUrl(url);
+        }
+        
+        System.out.println("DDD");
 
         userRepository.save(user);
     }

@@ -2,6 +2,8 @@ package com.example.eLeavePortal.dto;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.example.eLeavePortal.enums.ProfileStatusEnums;
 import com.example.eLeavePortal.enums.RolesEnum;
 
@@ -19,7 +21,9 @@ public class ProfileDto {
     private String mobile;
     private String whatsapp;
     private String email;
+
     private String pfpUrl;
+    private MultipartFile pfpImage;
 
     // Student Personal
     private String homeAddress;
